@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JC PARFUM | Alta Perfumaria Árabe &amp; Importados — Macapá/AP</title>
+  <meta name="description" content="JC PARFUM (JC Perfumes Árabes) em Macapá - AP. Boutique de alta perfumaria árabe e importados franceses 100% originais: Lattafa, Al Wataniah, Maison Alhambra, Jacques Bogart e Mega Collection." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="icon" type="image/jpeg" href="assets/img/logo.jpg" />
+</head>
+<body>
+
+  <!-- Barra Superior Editorial -->
+  <div class="top-bar">
+    <span>✦ Perfumes 100% Originais Lacrados</span>
+    <span class="sep">·</span>
+    <span>📍 Pronta Entrega em Macapá &amp; Santana - AP</span>
+    <span class="sep">·</span>
+    <span>📲 Consultoria VIP: (96) 8119-7608</span>
+  </div>
+
+  <!-- Cabeçalho Principal -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="#topo" class="brand-identity" id="header-brand-link">
+        <div class="brand-logo-wrap">
+          <img src="assets/img/logo.jpg" alt="Logo JC PARFUM Imported Premium" />
+        </div>
+        <div class="brand-titles">
+          <span class="brand-name">JC PARFUM</span>
+          <span class="brand-sub">Imported · Premium</span>
+        </div>
+      </a>
+
+      <nav class="header-nav" aria-label="Navegação principal">
+        <a href="#catalogo">Coleção Real</a>
+        <a href="#diferenciais">Autenticidade</a>
+        <a href="admin.html" class="nav-admin-pill">🔒 Painel do Lojista</a>
+      </nav>
+
+      <div class="header-actions">
+        <button type="button" class="btn-bag" id="open-bag-btn" onclick="toggleBagDrawer()">
+          <span>Sacola VIP</span>
+          <span class="bag-count" id="bag-count">0</span>
+        </button>
+        <a
+          href="https://wa.me/559681197608?text=Ol%C3%A1!%20Vim%20pelo%20cat%C3%A1logo%20online%20da%20JC%20PARFUM%20e%20gostaria%20de%20atendimento."
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-whatsapp-top"
+          id="header-whatsapp-btn"
+        >
+          <span>Atendimento WhatsApp</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section — Maison Editorial Centralizado com Brasão Oficial -->
+  <main id="topo">
+    <section class="hero-editorial">
+      <div class="hero-crest-showcase">
+        <div class="crest-frame">
+          <img src="assets/img/logo.jpg" alt="Brasão Oficial JC PARFUM Imported Premium" />
+        </div>
+        <div class="crest-divider">
+          <span></span>
+          <small>MAISON DE HAUTE PARFUMERIE · MACAPÁ - AP</small>
+          <span></span>
+        </div>
+      </div>
+
+      <div class="hero-editorial-content">
+        <h1 class="hero-title">
+          A Opulência da <em>Alta Perfumaria Árabe</em> &amp; Clássicos Importados
+        </h1>
+        <p class="hero-lead">
+          Fragrâncias de presença imperial importadas de Dubai e Paris. Fixação extraordinária, frascos esculturais lacrados de fábrica e pirâmide olfativa detalhada para você escolher sua assinatura com segurança.
+        </p>
+
+        <div class="hero-cta-group">
+          <a href="#catalogo" class="btn-gold" id="hero-explore-btn">
+            Explorar Vitrine Editorial
+          </a>
+          <a
+            href="https://wa.me/559681197608?text=Ol%C3%A1!%20Gostaria%20de%20uma%20consultoria%20olfativa%20para%20escolher%20um%20perfume%20na%20JC%20PARFUM."
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-outline-gold"
+            id="hero-consultant-btn"
+          >
+            Consultoria Olfativa no WhatsApp
+          </a>
+        </div>
+
+        <div class="hero-badges">
+          <div class="hero-badge-item">
+            <strong>Dubai &amp; Paris</strong>
+            <span>Importação 100% Original Lacrada</span>
+          </div>
+          <div class="hero-badge-item">
+            <strong>Pirâmide Olfativa</strong>
+            <span>Notas de Topo, Coração e Fundo na Vitrine</span>
+          </div>
+          <div class="hero-badge-item">
+            <strong>Macapá &amp; Santana</strong>
+            <span>Entrega Rápida &amp; Atendimento VIP</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Catálogo Editorial Panorâmico -->
+    <section class="catalog-section" id="catalogo">
+      <div class="section-header">
+        <span class="section-eyebrow">COLEÇÃO OFICIAL · IMPORTED · PREMIUM</span>
+        <h2 class="section-title">Vitrine Maison Editorial</h2>
+        <p class="section-subtitle">
+          Compare as notas de saída, coração e fundo diretamente em cada card ou clique para ampliar a ficha completa
+        </p>
+      </div>
+
+      <!-- Barra de Busca, Filtros por Categoria e Ordenação -->
+      <div class="catalog-controls">
+        <div class="search-box">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input
+            type="search"
+            id="search-input"
+            placeholder="Buscar por nome (Musamam, Bareeq, Silver Scent...), marca ou nota (Oud, Baunilha, Açafrão)..."
+            aria-label="Buscar perfumes"
+          />
+        </div>
+
+        <div class="filter-pills" role="tablist" aria-label="Filtrar por categoria">
+          <button type="button" class="filter-pill active" data-category="Todos" id="filter-all">Todos</button>
+          <button type="button" class="filter-pill" data-category="Masculino" id="filter-masculino">Masculinos</button>
+          <button type="button" class="filter-pill" data-category="Feminino" id="filter-feminino">Femininos</button>
+          <button type="button" class="filter-pill" data-category="Unissex" id="filter-unissex">Unissex</button>
+          <button type="button" class="filter-pill" data-category="Disponiveis" id="filter-estoque">Pronta Entrega</button>
+        </div>
+
+        <select id="sort-select" class="sort-select" aria-label="Ordenar catálogo">
+          <option value="featured">Destaques da Maison</option>
+          <option value="price-asc">Menor Valor</option>
+          <option value="price-desc">Maior Valor</option>
+          <option value="name-asc">Ordem Alfabética (A-Z)</option>
+        </select>
+      </div>
+
+      <div class="catalog-status-bar">
+        <span id="catalog-count">Carregando coleção...</span>
+        <span>✦ Pirâmide Olfativa (Topo · Coração · Fundo) integrada em cada fragrância</span>
+      </div>
+
+      <!-- Grid Editorial de Cards Horizontais Panorâmicos -->
+      <div class="products-grid-editorial" id="products-grid"></div>
+    </section>
+
+    <!-- Diferenciais de Compra -->
+    <section class="features-strip" id="diferenciais" aria-label="Garantias JC Parfum">
+      <div class="feature-box">
+        <span class="feature-num">01</span>
+        <h3>100% Autênticos &amp; Lacrados</h3>
+        <p>Trabalhamos exclusivamente com perfumes originais das casas Lattafa, Al Wataniah, Maison Alhambra, Mega Collection e Jacques Bogart com selo holográfico.</p>
+      </div>
+      <div class="feature-box">
+        <span class="feature-num">02</span>
+        <h3>Consultoria &amp; Pirâmide Olfativa</h3>
+        <p>Dúvida entre um amadeirado com Oud, um especiado noturno ou um floral adocicado? Compare as notas de Topo, Coração e Fundo ou chame no WhatsApp para descobrir o perfume ideal.</p>
+      </div>
+      <div class="feature-box">
+        <span class="feature-num">03</span>
+        <h3>Entrega VIP no Amapá</h3>
+        <p>Monte sua sacola ou peça em 1 clique pelo WhatsApp +55 (96) 8119-7608 com entrega rápida em Macapá e Santana.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal de Ficha Técnica Ampliada -->
+  <div class="modal-backdrop" id="product-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-dialog">
+      <button type="button" class="modal-close" id="modal-close-btn" onclick="closeProductModal()" aria-label="Fechar janela">✕</button>
+      <div id="modal-body-container" style="display: contents;"></div>
+    </div>
+  </div>
+
+  <!-- Sacola Lateral (Pedido WhatsApp) -->
+  <aside class="bag-drawer" id="bag-drawer" aria-label="Sacola de Pedidos">
+    <div class="bag-header">
+      <h3>Sua Sacola VIP</h3>
+      <button type="button" onclick="toggleBagDrawer(false)" class="bag-close-btn" aria-label="Fechar sacola">✕</button>
+    </div>
+
+    <div class="bag-items" id="bag-items-list"></div>
+
+    <div class="bag-footer">
+      <div class="bag-client-fields">
+        <input
+          type="text"
+          id="bag-client-name"
+          placeholder="Seu nome (opcional)"
+        />
+        <select id="bag-client-region">
+          <option value="Macapá">Macapá - AP</option>
+          <option value="Santana">Santana - AP</option>
+          <option value="Outra Região">Outra Região</option>
+        </select>
+      </div>
+
+      <div class="bag-total-row">
+        <span>Total Estimado:</span>
+        <strong id="bag-total-value">R$ 0,00</strong>
+      </div>
+
+      <button type="button" class="btn-gold" id="checkout-whatsapp-btn" onclick="checkoutBagWhatsApp()" style="width: 100%;">
+        Finalizar Pedido no WhatsApp
+      </button>
+    </div>
+  </aside>
+
+  <!-- Botão Flutuante do WhatsApp -->
+  <a
+    href="https://wa.me/559681197608?text=Ol%C3%A1!%20Vim%20pelo%20cat%C3%A1logo%20da%20JC%20PARFUM%20e%20quero%20atendimento."
+    target="_blank"
+    rel="noopener noreferrer"
+    class="floating-wa"
+    id="floating-whatsapp-btn"
+  >
+    <span>📲 WhatsApp (96) 8119-7608</span>
+  </a>
+
+  <!-- Rodapé -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="brand-identity">
+        <div class="brand-logo-wrap" style="width: 48px; height: 48px;">
+          <img src="assets/img/logo.jpg" alt="JC PARFUM" />
+        </div>
+        <div class="brand-titles">
+          <span class="brand-name" style="font-size: 1.2rem;">JC PARFUM</span>
+          <span class="brand-sub">Imported · Premium · Macapá - AP</span>
+        </div>
+      </div>
+
+      <div class="footer-meta">
+        © 2026 JC Perfumes Árabes (JC PARFUM) · Todos os direitos reservados · WhatsApp: +55 (96) 8119-7608
+      </div>
+
+      <a href="admin.html" class="footer-admin-link" id="footer-admin-btn">
+        🔒 Painel do Lojista
+      </a>
+    </div>
+  </footer>
+
+  <script src="assets/js/products.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

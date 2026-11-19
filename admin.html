@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Painel do Lojista | JC PARFUM — Gestão de Catálogo &amp; Estoque</title>
+  <meta name="description" content="Painel administrativo exclusivo JC PARFUM para gerenciamento de preços, estoque e cadastro de perfumes importados." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="icon" type="image/jpeg" href="assets/img/logo.jpg" />
+  <style>
+    .admin-wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 4rem;
+    }
+    .login-card {
+      max-width: 420px;
+      margin: 4rem auto;
+      background: var(--bg-card);
+      border: 1px solid var(--gold-border-strong);
+      border-radius: var(--radius-lg);
+      padding: 2.25rem 1.85rem;
+      box-shadow: var(--shadow-luxury);
+      text-align: center;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      gap: 0.35rem;
+      margin-bottom: 1rem;
+    }
+    .form-group label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--gold-champagne);
+      font-weight: 600;
+    }
+    .form-control {
+      background: var(--bg-obsidian);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: var(--radius-sm);
+      padding: 0.72rem 0.9rem;
+      font-size: 0.9rem;
+      color: var(--text-primary);
+    }
+    .form-control:focus {
+      outline: none;
+      border-color: var(--gold-primary);
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--gold-border);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+    }
+    .stat-card span {
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+    }
+    .stat-card strong {
+      display: block;
+      font-family: var(--font-serif);
+      font-size: 2rem;
+      color: var(--gold-light);
+      margin-top: 0.2rem;
+    }
+    .admin-grid {
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 1.75rem;
+      align-items: start;
+    }
+    .panel-box {
+      background: var(--bg-card);
+      border: 1px solid var(--gold-border);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+    }
+    .panel-box h2 {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      color: var(--gold-light);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+    }
+    .admin-table-wrap {
+      overflow-x: auto;
+    }
+    table.admin-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.86rem;
+    }
+    table.admin-table th,
+    table.admin-table td {
+      padding: 0.85rem 0.65rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+      text-align: left;
+      vertical-align: middle;
+    }
+    table.admin-table th {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--gold-champagne);
+    }
+    .price-inline-input {
+      width: 105px;
+      background: var(--bg-obsidian);
+      border: 1px solid var(--gold-border);
+      border-radius: 4px;
+      padding: 0.4rem 0.55rem;
+      color: var(--gold-light);
+      font-weight: 700;
+      font-size: 0.88rem;
+    }
+    .switch-stock {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      cursor: pointer;
+      padding: 0.35rem 0.7rem;
+      border-radius: 99px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      border: 1px solid transparent;
+    }
+    .switch-stock.on {
+      background: rgba(31, 168, 85, 0.16);
+      color: #5ce68b;
+      border-color: rgba(31, 168, 85, 0.4);
+    }
+    .switch-stock.off {
+      background: rgba(217, 70, 70, 0.16);
+      color: #f08585;
+      border-color: rgba(217, 70, 70, 0.4);
+    }
+    .toast-bar {
+      position: fixed;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #141418;
+      border: 1px solid var(--gold-primary);
+      color: var(--gold-light);
+      padding: 0.75rem 1.4rem;
+      border-radius: 99px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      box-shadow: var(--shadow-luxury);
+      z-index: 400;
+      display: none;
+    }
+    @media (max-width: 920px) {
+      .admin-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="brand-identity">
+        <div class="brand-logo-wrap">
+          <img src="assets/img/logo.jpg" alt="JC PARFUM" />
+        </div>
+        <div class="brand-titles">
+          <span class="brand-name">JC PARFUM</span>
+          <span class="brand-sub">Painel Administrativo do Lojista</span>
+        </div>
+      </a>
+
+      <div class="header-actions">
+        <a href="index.html" class="btn-outline-gold" style="padding: 0.55rem 1rem; font-size: 0.8rem;">
+          ← Ver Vitrine Pública
+        </a>
+        <button type="button" id="logout-btn" onclick="handleLogout()" class="btn-bag" style="display: none;">
+          Sair
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="admin-wrap">
+    <!-- TELA DE LOGIN -->
+    <section id="login-section" class="login-card">
+      <div class="brand-logo-wrap" style="width: 78px; height: 78px; margin: 0 auto 1rem;">
+        <img src="assets/img/logo.jpg" alt="JC PARFUM Logo" />
+      </div>
+      <h1 style="font-family: var(--font-serif); font-size: 1.85rem; color: var(--gold-light); margin-bottom: 0.25rem;">
+        Acesso Restrito
+      </h1>
+      <p style="font-size: 0.84rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
+        Exclusivo para administração da JC Perfumes Árabes
+      </p>
+
+      <form id="login-form" onsubmit="handleLogin(event)">
+        <div class="form-group">
+          <label for="admin-user">Usuário</label>
+          <input type="text" id="admin-user" class="form-control" placeholder="jcparfum ou admin" required />
+        </div>
+        <div class="form-group">
+          <label for="admin-pass">Senha</label>
+          <input type="password" id="admin-pass" class="form-control" placeholder="••••••" required />
+        </div>
+        <p id="login-error" style="color: #f07575; font-size: 0.8rem; margin-bottom: 0.85rem; display: none;">
+          Usuário ou senha incorretos. Use <strong>jcparfum</strong> e senha <strong>123456</strong>.
+        </p>
+        <button type="submit" class="btn-gold" style="width: 100%;" id="login-submit-btn">
+          Entrar no Painel
+        </button>
+      </form>
+    </section>
+
+    <!-- DASHBOARD DO LOJISTA -->
+    <section id="dashboard-section" style="display: none;">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+        <div>
+          <h1 style="font-family: var(--font-serif); font-size: 2rem; color: var(--text-primary);">
+            Gestão de Catálogo &amp; Estoque em Tempo Real
+          </h1>
+          <p style="font-size: 0.86rem; color: var(--text-secondary);">
+            Qualquer alteração feita aqui atualiza imediatamente a vitrine pública dos clientes.
+          </p>
+        </div>
+        <button type="button" class="btn-outline-gold" onclick="handleResetDefault()" style="padding: 0.6rem 1rem; font-size: 0.78rem;">
+          Restaurar Catálogo Inicial (7 Perfumes)
+        </button>
+      </div>
+
+      <!-- Indicadores -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span>Total Cadastrados</span>
+          <strong id="stat-total">0</strong>
+        </div>
+        <div class="stat-card">
+          <span>Em Estoque (Pronta Entrega)</span>
+          <strong id="stat-instock" style="color: #5ce68b;">0</strong>
+        </div>
+        <div class="stat-card">
+          <span>Esgotados / Sob Consulta</span>
+          <strong id="stat-outstock" style="color: #f08585;">0</strong>
+        </div>
+        <div class="stat-card">
+          <span>Ticket Médio da Loja</span>
+          <strong id="stat-avg">R$ 0,00</strong>
+        </div>
+      </div>
+
+      <div class="admin-grid">
+        <!-- Formulário de Cadastro -->
+        <div class="panel-box">
+          <h2 id="form-panel-title">Cadastrar Novo Perfume</h2>
+          <form id="product-form" onsubmit="handleSaveProduct(event)">
+            <input type="hidden" id="prod-id" value="" />
+
+            <div class="form-group">
+              <label for="prod-name">Nome do Perfume *</label>
+              <input type="text" id="prod-name" class="form-control" placeholder="Ex: Asad Lattafa" required />
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+              <div class="form-group">
+                <label for="prod-brand">Marca / Casa *</label>
+                <input type="text" id="prod-brand" class="form-control" placeholder="Ex: Lattafa" required />
+              </div>
+              <div class="form-group">
+                <label for="prod-category">Categoria *</label>
+                <select id="prod-category" class="form-control" required>
+                  <option value="Masculino">Masculino</option>
+                  <option value="Feminino">Feminino</option>
+                  <option value="Unissex">Unissex</option>
+                </select>
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+              <div class="form-group">
+                <label for="prod-price">Preço (R$) *</label>
+                <input type="number" step="0.01" min="1" id="prod-price" class="form-control" placeholder="350.00" required />
+              </div>
+              <div class="form-group">
+                <label for="prod-badge">Selo de Destaque</label>
+                <input type="text" id="prod-badge" class="form-control" placeholder="Ex: Ouro de Dubai" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="prod-image">URL da Foto ou Caminho Local</label>
+              <input type="text" id="prod-image" class="form-control" placeholder="assets/img/real-musamam-white-intense.jpg ou https://..." />
+            </div>
+
+            <div class="form-group">
+              <label for="prod-desc">Descrição Comercial / Resumo *</label>
+              <textarea id="prod-desc" rows="2" class="form-control" placeholder="Frasco imponente com fixação intensa..." required></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="prod-notes-top">Notas de Topo (Saída)</label>
+              <input type="text" id="prod-notes-top" class="form-control" placeholder="Ex: Açafrão, Pimenta Preta, Bergamota" />
+            </div>
+
+            <div class="form-group">
+              <label for="prod-notes-heart">Notas de Coração</label>
+              <input type="text" id="prod-notes-heart" class="form-control" placeholder="Ex: Rosa Damascena, Oud, Caramelo" />
+            </div>
+
+            <div class="form-group">
+              <label for="prod-notes-base">Notas de Fundo (Base)</label>
+              <input type="text" id="prod-notes-base" class="form-control" placeholder="Ex: Âmbar, Baunilha, Sândalo, Almíscar" />
+            </div>
+
+            <div style="display: flex; gap: 0.6rem; margin-top: 0.5rem;">
+              <button type="submit" class="btn-gold" style="flex: 1;">
+                Salvar no Catálogo
+              </button>
+              <button type="button" id="cancel-edit-btn" class="btn-outline-gold" onclick="clearProductForm()" style="display: none; padding: 0.7rem 0.9rem;">
+                Cancelar
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Tabela de Perfumes Cadastrados -->
+        <div class="panel-box">
+          <h2>Perfumes na Vitrine (Edição Rápida)</h2>
+          <div class="admin-table-wrap">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Perfume</th>
+                  <th>Categoria</th>
+                  <th>Preço (R$)</th>
+                  <th>Status Estoque</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody id="admin-products-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast-bar" class="toast-bar">Alteração salva com sucesso!</div>
+
+  <script src="assets/js/products.js"></script>
+  <script>
+    const ADMIN_SESSION_KEY = 'jc_parfum_admin_logged';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      if (sessionStorage.getItem(ADMIN_SESSION_KEY) === 'true') {
+        showDashboard();
+      }
+    });
+
+    function handleLogin(e) {
+      e.preventDefault();
+      const user = document.getElementById('admin-user').value.trim().toLowerCase();
+      const pass = document.getElementById('admin-pass').value.trim();
+      const errEl = document.getElementById('login-error');
+
+      if ((user === 'jcparfum' || user === 'admin') && pass === '123456') {
+        sessionStorage.setItem(ADMIN_SESSION_KEY, 'true');
+        errEl.style.display = 'none';
+        showDashboard();
+      } else {
+        errEl.style.display = 'block';
+      }
+    }
+
+    function handleLogout() {
+      sessionStorage.removeItem(ADMIN_SESSION_KEY);
+      document.getElementById('dashboard-section').style.display = 'none';
+      document.getElementById('logout-btn').style.display = 'none';
+      document.getElementById('login-section').style.display = 'block';
+    }
+
+    function showDashboard() {
+      document.getElementById('login-section').style.display = 'none';
+      document.getElementById('dashboard-section').style.display = 'block';
+      document.getElementById('logout-btn').style.display = 'inline-flex';
+      renderAdminTable();
+    }
+
+    function renderAdminTable() {
+      const products = getProducts();
+      const tbody = document.getElementById('admin-products-tbody');
+
+      const inStockCount = products.filter((p) => p.inStock).length;
+      const outStockCount = products.length - inStockCount;
+      const avgPrice = products.length
+        ? products.reduce((sum, p) => sum + Number(p.price || 0), 0) / products.length
+        : 0;
+
+      document.getElementById('stat-total').textContent = products.length;
+      document.getElementById('stat-instock').textContent = inStockCount;
+      document.getElementById('stat-outstock').textContent = outStockCount;
+      document.getElementById('stat-avg').textContent = formatBRL(avgPrice);
+
+      tbody.innerHTML = products
+        .map(
+          (p) => `
+          <tr>
+            <td>
+              <div style="display: flex; align-items: center; gap: 0.75rem;">
+                <img src="${p.image}" alt="${p.name}" style="width: 46px; height: 46px; object-fit: contain; background: #fff; border-radius: 6px; padding: 3px;" onerror="this.src='assets/img/logo.jpg'" />
+                <div>
+                  <strong style="display: block; color: var(--text-primary); font-size: 0.92rem;">${p.name}</strong>
+                  <span style="font-size: 0.75rem; color: var(--gold-primary);">${p.brand}</span>
+                </div>
+              </div>
+            </td>
+            <td>
+              <span style="font-size: 0.78rem; color: var(--text-secondary);">${p.category}</span>
+            </td>
+            <td>
+              <input
+                type="number"
+                step="1"
+                min="1"
+                class="price-inline-input"
+                value="${Number(p.price).toFixed(2)}"
+                onchange="updateInlinePrice('${p.id}', this.value)"
+                aria-label="Preço de ${p.name}"
+              />
+            </td>
+            <td>
+              <button
+                type="button"
+                class="switch-stock ${p.inStock ? 'on' : 'off'}"
+                onclick="toggleProductStock('${p.id}')"
+              >
+                <span>${p.inStock ? '● Em Estoque' : '○ Esgotado'}</span>
+              </button>
+            </td>
+            <td>
+              <div style="display: flex; gap: 0.4rem;">
+                <button
+                  type="button"
+                  onclick="editProduct('${p.id}')"
+                  style="background: var(--bg-elevated); border: 1px solid var(--gold-border); color: var(--gold-light); padding: 0.35rem 0.65rem; border-radius: 4px; font-size: 0.75rem; cursor: pointer;"
+                >
+                  Editar
+                </button>
+                <button
+                  type="button"
+                  onclick="deleteProduct('${p.id}')"
+                  style="background: rgba(217,70,70,0.14); border: 1px solid rgba(217,70,70,0.4); color: #f08585; padding: 0.35rem 0.65rem; border-radius: 4px; font-size: 0.75rem; cursor: pointer;"
+                >
+                  Excluir
+                </button>
+              </div>
+            </td>
+          </tr>
+        `
+        )
+        .join('');
+    }
+
+    function updateInlinePrice(productId, newValue) {
+      const parsed = parseFloat(newValue);
+      if (isNaN(parsed) || parsed <= 0) return;
+      const list = getProducts().map((p) =>
+        p.id === productId ? { ...p, price: parsed } : p
+      );
+      saveProducts(list);
+      renderAdminTable();
+      showToast('Preço atualizado em tempo real!');
+    }
+
+    function toggleProductStock(productId) {
+      const list = getProducts().map((p) =>
+        p.id === productId ? { ...p, inStock: !p.inStock } : p
+      );
+      saveProducts(list);
+      renderAdminTable();
+      showToast('Status de estoque atualizado!');
+    }
+
+    function editProduct(productId) {
+      const prod = getProducts().find((p) => p.id === productId);
+      if (!prod) return;
+
+      document.getElementById('form-panel-title').textContent = 'Editar Perfume';
+      document.getElementById('prod-id').value = prod.id;
+      document.getElementById('prod-name').value = prod.name;
+      document.getElementById('prod-brand').value = prod.brand;
+      document.getElementById('prod-category').value = prod.category;
+      document.getElementById('prod-price').value = prod.price;
+      document.getElementById('prod-badge').value = prod.badge || '';
+      document.getElementById('prod-image').value = prod.image || '';
+      document.getElementById('prod-desc').value = prod.shortDesc || prod.description || '';
+      document.getElementById('prod-notes-top').value = prod.notes?.top || '';
+      document.getElementById('prod-notes-heart').value = prod.notes?.heart || '';
+      document.getElementById('prod-notes-base').value = prod.notes?.base || '';
+      document.getElementById('cancel-edit-btn').style.display = 'inline-flex';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function clearProductForm() {
+      document.getElementById('form-panel-title').textContent = 'Cadastrar Novo Perfume';
+      document.getElementById('product-form').reset();
+      document.getElementById('prod-id').value = '';
+      document.getElementById('cancel-edit-btn').style.display = 'none';
+    }
+
+    function handleSaveProduct(e) {
+      e.preventDefault();
+      const idField = document.getElementById('prod-id').value.trim();
+      const name = document.getElementById('prod-name').value.trim();
+      const brand = document.getElementById('prod-brand').value.trim();
+      const category = document.getElementById('prod-category').value;
+      const price = parseFloat(document.getElementById('prod-price').value) || 0;
+      const badge = document.getElementById('prod-badge').value.trim() || 'Importado Premium';
+      const image = document.getElementById('prod-image').value.trim() || 'assets/img/logo.jpg';
+      const desc = document.getElementById('prod-desc').value.trim();
+      const top = document.getElementById('prod-notes-top').value.trim() || 'Notas aromáticas orientais';
+      const heart = document.getElementById('prod-notes-heart').value.trim() || 'Especiarias e madeiras nobres';
+      const base = document.getElementById('prod-notes-base').value.trim() || 'Âmbar, oud e almíscar';
+
+      let list = getProducts();
+
+      if (idField) {
+        list = list.map((p) =>
+          p.id === idField
+            ? {
+                ...p,
+                name,
+                brand,
+                category,
+                price,
+                badge,
+                image,
+                shortDesc: desc,
+                description: desc,
+                notes: { top, heart, base }
+              }
+            : p
+        );
+        showToast('Perfume atualizado com sucesso!');
+      } else {
+        const slug =
+          name
+            .toLowerCase()
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .replace(/[^a-z0-9]+/g, '-') +
+          '-' +
+          Date.now().toString().slice(-4);
+
+        list.unshift({
+          id: slug,
+          name,
+          brand,
+          origin: 'Dubai · EAU',
+          category,
+          volume: '100ml · Eau de Parfum',
+          price,
+          inStock: true,
+          featured: true,
+          badge,
+          image,
+          shortDesc: desc,
+          description: desc,
+          notes: { top, heart, base },
+          accords: [category, brand, 'Alta Fixação'],
+          longevity: '8h – 12h',
+          projection: 'Alta'
+        });
+        showToast('Novo perfume adicionado à vitrine!');
+      }
+
+      saveProducts(list);
+      clearProductForm();
+      renderAdminTable();
+    }
+
+    function deleteProduct(productId) {
+      const prod = getProducts().find((p) => p.id === productId);
+      if (!prod) return;
+      if (!confirm(`Deseja realmente excluir "${prod.name}" do catálogo?`)) return;
+
+      const list = getProducts().filter((p) => p.id !== productId);
+      saveProducts(list);
+      renderAdminTable();
+      showToast('Perfume removido do catálogo.');
+    }
+
+    function handleResetDefault() {
+      if (!confirm('Restaurar os 7 perfumes originais e preços padrão?')) return;
+      resetCatalogToDefault();
+      renderAdminTable();
+      showToast('Catálogo original restaurado!');
+    }
+
+    function showToast(msg) {
+      const bar = document.getElementById('toast-bar');
+      bar.textContent = msg;
+      bar.style.display = 'block';
+      clearTimeout(window._toastTimer);
+      window._toastTimer = setTimeout(() => {
+        bar.style.display = 'none';
+      }, 2800);
+    }
+  </script>
+</body>
+</html>
