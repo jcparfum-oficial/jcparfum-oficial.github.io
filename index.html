@@ -4,10 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>JC PARFUM | Alta Perfumaria Árabe &amp; Importados — Macapá/AP</title>
-  <meta name="description" content="JC PARFUM (JC Perfumes Árabes) em Macapá - AP. Boutique de alta perfumaria árabe e importados franceses 100% originais: Lattafa, Al Wataniah, Maison Alhambra, Jacques Bogart e Mega Collection." />
+  <meta name="description" content="JC PARFUM (JC Perfumes Árabes) em Macapá - AP. Alta perfumaria árabe e importados franceses 100% originais: Lattafa, Al Wataniah, Maison Alhambra, Jacques Bogart e Mega Collection." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/style.css" />
   <link rel="icon" type="image/jpeg" href="assets/img/logo.jpg" />
 </head>
@@ -15,14 +15,14 @@
 
   <!-- Barra Superior Editorial -->
   <div class="top-bar">
-    <span>✦ Perfumes 100% Originais Lacrados</span>
+    <span>Perfumes 100% Originais Lacrados</span>
     <span class="sep">·</span>
-    <span>📍 Pronta Entrega em Macapá &amp; Santana - AP</span>
+    <span>Pronta Entrega em Macapá &amp; Santana - AP</span>
     <span class="sep">·</span>
-    <span>📲 Consultoria VIP: (96) 8119-7608</span>
+    <span>Atendimento WhatsApp: (96) 8119-7608</span>
   </div>
 
-  <!-- Cabeçalho Principal -->
+  <!-- Cabeçalho Boutique Limpo (Sem Painel Admin no Topo) -->
   <header class="site-header">
     <div class="header-inner">
       <a href="#topo" class="brand-identity" id="header-brand-link">
@@ -36,16 +36,40 @@
       </a>
 
       <nav class="header-nav" aria-label="Navegação principal">
-        <a href="#catalogo">Coleção Real</a>
-        <a href="#diferenciais">Autenticidade</a>
-        <a href="admin.html" class="nav-admin-pill">🔒 Painel do Lojista</a>
+        <a href="#catalogo" onclick="filterFromHeader('Todos')">Vitrine</a>
+        <a href="#catalogo" onclick="filterFromHeader('Masculino')">Masculinos</a>
+        <a href="#catalogo" onclick="filterFromHeader('Feminino')">Femininos</a>
+        <a href="#catalogo" onclick="filterFromHeader('Unissex')">Unissex</a>
+        <a href="#diferenciais">Garantias</a>
       </nav>
 
       <div class="header-actions">
+        <a
+          href="https://www.instagram.com/jc.perfumesarabe"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-ig-top"
+          aria-label="Instagram @jc.perfumesarabe"
+          title="Seguir @jc.perfumesarabe no Instagram"
+        >
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+          </svg>
+          <span>Instagram</span>
+        </a>
+
         <button type="button" class="btn-bag" id="open-bag-btn" onclick="toggleBagDrawer()">
-          <span>Sacola VIP</span>
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
+          </svg>
+          <span>Sacola</span>
           <span class="bag-count" id="bag-count">0</span>
         </button>
+
         <a
           href="https://wa.me/559681197608?text=Ol%C3%A1!%20Vim%20pelo%20cat%C3%A1logo%20online%20da%20JC%20PARFUM%20e%20gostaria%20de%20atendimento."
           target="_blank"
@@ -53,13 +77,16 @@
           class="btn-whatsapp-top"
           id="header-whatsapp-btn"
         >
-          <span>Atendimento WhatsApp</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+          </svg>
+          <span>WhatsApp</span>
         </a>
       </div>
     </div>
   </header>
 
-  <!-- Hero Section — Maison Editorial Centralizado com Brasão Oficial -->
+  <!-- Hero Section — Maison Editorial Centralizado -->
   <main id="topo">
     <section class="hero-editorial">
       <div class="hero-crest-showcase">
@@ -68,7 +95,7 @@
         </div>
         <div class="crest-divider">
           <span></span>
-          <small>MAISON DE HAUTE PARFUMERIE · MACAPÁ - AP</small>
+          <small>ALTA PERFUMARIA · MACAPÁ - AP</small>
           <span></span>
         </div>
       </div>
@@ -78,12 +105,12 @@
           A Opulência da <em>Alta Perfumaria Árabe</em> &amp; Clássicos Importados
         </h1>
         <p class="hero-lead">
-          Fragrâncias de presença imperial importadas de Dubai e Paris. Fixação extraordinária, frascos esculturais lacrados de fábrica e pirâmide olfativa detalhada para você escolher sua assinatura com segurança.
+          Fragrâncias originais importadas de Dubai e Paris com fixação extraordinária, frascos lacrados de fábrica e pirâmide olfativa completa direto na vitrine.
         </p>
 
         <div class="hero-cta-group">
           <a href="#catalogo" class="btn-gold" id="hero-explore-btn">
-            Explorar Vitrine Editorial
+            Explorar Catálogo
           </a>
           <a
             href="https://wa.me/559681197608?text=Ol%C3%A1!%20Gostaria%20de%20uma%20consultoria%20olfativa%20para%20escolher%20um%20perfume%20na%20JC%20PARFUM."
@@ -92,7 +119,7 @@
             class="btn-outline-gold"
             id="hero-consultant-btn"
           >
-            Consultoria Olfativa no WhatsApp
+            Consultoria no WhatsApp
           </a>
         </div>
 
@@ -103,11 +130,11 @@
           </div>
           <div class="hero-badge-item">
             <strong>Pirâmide Olfativa</strong>
-            <span>Notas de Topo, Coração e Fundo na Vitrine</span>
+            <span>Notas de Saída, Coração e Fundo</span>
           </div>
           <div class="hero-badge-item">
             <strong>Macapá &amp; Santana</strong>
-            <span>Entrega Rápida &amp; Atendimento VIP</span>
+            <span>Pronta Entrega &amp; Atendimento VIP</span>
           </div>
         </div>
       </div>
@@ -116,10 +143,10 @@
     <!-- Catálogo Editorial Panorâmico -->
     <section class="catalog-section" id="catalogo">
       <div class="section-header">
-        <span class="section-eyebrow">COLEÇÃO OFICIAL · IMPORTED · PREMIUM</span>
-        <h2 class="section-title">Vitrine Maison Editorial</h2>
+        <span class="section-eyebrow">COLEÇÃO OFICIAL</span>
+        <h2 class="section-title">Vitrine de Fragrâncias</h2>
         <p class="section-subtitle">
-          Compare as notas de saída, coração e fundo diretamente em cada card ou clique para ampliar a ficha completa
+          Compare as notas olfativas diretamente em cada perfume ou clique para abrir a ficha completa
         </p>
       </div>
 
@@ -133,7 +160,7 @@
           <input
             type="search"
             id="search-input"
-            placeholder="Buscar por nome (Musamam, Bareeq, Silver Scent...), marca ou nota (Oud, Baunilha, Açafrão)..."
+            placeholder="Buscar por nome, marca (Lattafa, Al Wataniah...) ou nota (Oud, Baunilha)..."
             aria-label="Buscar perfumes"
           />
         </div>
@@ -147,7 +174,7 @@
         </div>
 
         <select id="sort-select" class="sort-select" aria-label="Ordenar catálogo">
-          <option value="featured">Destaques da Maison</option>
+          <option value="featured">Destaques</option>
           <option value="price-asc">Menor Valor</option>
           <option value="price-desc">Maior Valor</option>
           <option value="name-asc">Ordem Alfabética (A-Z)</option>
@@ -156,10 +183,10 @@
 
       <div class="catalog-status-bar">
         <span id="catalog-count">Carregando coleção...</span>
-        <span>✦ Pirâmide Olfativa (Topo · Coração · Fundo) integrada em cada fragrância</span>
+        <span>Clique no perfume para ver mais detalhes</span>
       </div>
 
-      <!-- Grid Editorial de Cards Horizontais Panorâmicos -->
+      <!-- Grid Editorial de Cards Horizontais -->
       <div class="products-grid-editorial" id="products-grid"></div>
     </section>
 
@@ -168,17 +195,17 @@
       <div class="feature-box">
         <span class="feature-num">01</span>
         <h3>100% Autênticos &amp; Lacrados</h3>
-        <p>Trabalhamos exclusivamente com perfumes originais das casas Lattafa, Al Wataniah, Maison Alhambra, Mega Collection e Jacques Bogart com selo holográfico.</p>
+        <p>Trabalhamos exclusivamente com perfumes originais das casas Lattafa, Al Wataniah, Maison Alhambra, Mega Collection e Jacques Bogart com selo de fábrica.</p>
       </div>
       <div class="feature-box">
         <span class="feature-num">02</span>
         <h3>Consultoria &amp; Pirâmide Olfativa</h3>
-        <p>Dúvida entre um amadeirado com Oud, um especiado noturno ou um floral adocicado? Compare as notas de Topo, Coração e Fundo ou chame no WhatsApp para descobrir o perfume ideal.</p>
+        <p>Dúvida entre um amadeirado com Oud, um especiado noturno ou um floral adocicado? Compare as notas de Saída, Coração e Fundo ou chame no WhatsApp.</p>
       </div>
       <div class="feature-box">
         <span class="feature-num">03</span>
-        <h3>Entrega VIP no Amapá</h3>
-        <p>Monte sua sacola ou peça em 1 clique pelo WhatsApp +55 (96) 8119-7608 com entrega rápida em Macapá e Santana.</p>
+        <h3>Entrega Rápida no Amapá</h3>
+        <p>Monte sua sacola ou faça seu pedido direto pelo WhatsApp (96) 8119-7608 com entrega rápida em Macapá e Santana.</p>
       </div>
     </section>
   </main>
@@ -186,7 +213,12 @@
   <!-- Modal de Ficha Técnica Ampliada -->
   <div class="modal-backdrop" id="product-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
     <div class="modal-dialog">
-      <button type="button" class="modal-close" id="modal-close-btn" onclick="closeProductModal()" aria-label="Fechar janela">✕</button>
+      <button type="button" class="modal-close" id="modal-close-btn" onclick="closeProductModal()" aria-label="Fechar janela">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
       <div id="modal-body-container" style="display: contents;"></div>
     </div>
   </div>
@@ -194,7 +226,7 @@
   <!-- Sacola Lateral (Pedido WhatsApp) -->
   <aside class="bag-drawer" id="bag-drawer" aria-label="Sacola de Pedidos">
     <div class="bag-header">
-      <h3>Sua Sacola VIP</h3>
+      <h3>Sua Sacola</h3>
       <button type="button" onclick="toggleBagDrawer(false)" class="bag-close-btn" aria-label="Fechar sacola">✕</button>
     </div>
 
@@ -202,11 +234,7 @@
 
     <div class="bag-footer">
       <div class="bag-client-fields">
-        <input
-          type="text"
-          id="bag-client-name"
-          placeholder="Seu nome (opcional)"
-        />
+        <input type="text" id="bag-client-name" placeholder="Seu nome (opcional)" />
         <select id="bag-client-region">
           <option value="Macapá">Macapá - AP</option>
           <option value="Santana">Santana - AP</option>
@@ -220,7 +248,7 @@
       </div>
 
       <button type="button" class="btn-gold" id="checkout-whatsapp-btn" onclick="checkoutBagWhatsApp()" style="width: 100%;">
-        Finalizar Pedido no WhatsApp
+        Finalizar no WhatsApp
       </button>
     </div>
   </aside>
@@ -232,29 +260,35 @@
     rel="noopener noreferrer"
     class="floating-wa"
     id="floating-whatsapp-btn"
+    aria-label="Falar no WhatsApp"
   >
-    <span>📲 WhatsApp (96) 8119-7608</span>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+    </svg>
+    <span>WhatsApp (96) 8119-7608</span>
   </a>
 
-  <!-- Rodapé -->
+  <!-- Rodapé com Acesso Discreto ao Lojista -->
   <footer class="site-footer">
     <div class="footer-inner">
       <div class="brand-identity">
-        <div class="brand-logo-wrap" style="width: 48px; height: 48px;">
+        <div class="brand-logo-wrap" style="width: 44px; height: 44px;">
           <img src="assets/img/logo.jpg" alt="JC PARFUM" />
         </div>
         <div class="brand-titles">
-          <span class="brand-name" style="font-size: 1.2rem;">JC PARFUM</span>
+          <span class="brand-name" style="font-size: 1.15rem;">JC PARFUM</span>
           <span class="brand-sub">Imported · Premium · Macapá - AP</span>
         </div>
       </div>
 
       <div class="footer-meta">
-        © 2026 JC Perfumes Árabes (JC PARFUM) · Todos os direitos reservados · WhatsApp: +55 (96) 8119-7608
+        © 2026 JC Perfumes Árabes (JC PARFUM) ·
+        <a href="https://www.instagram.com/jc.perfumesarabe" target="_blank" rel="noopener noreferrer" class="footer-ig-link">@jc.perfumesarabe</a> ·
+        WhatsApp: +55 (96) 8119-7608
       </div>
 
       <a href="admin.html" class="footer-admin-link" id="footer-admin-btn">
-        🔒 Painel do Lojista
+        Área do Lojista
       </a>
     </div>
   </footer>
