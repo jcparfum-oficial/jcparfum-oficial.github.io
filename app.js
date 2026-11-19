@@ -393,7 +393,29 @@ function addToBag(productId) {
 
   closeProductModal();
   updateBagUI();
-  toggleBagDrawer(true);
+  showBagToast(`${product.name} adicionado à sacola`);
+}
+
+function showBagToast(message) {
+  let toast = document.getElementById('bag-toast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'bag-toast';
+    toast.className = 'bag-toast';
+    document.body.appendChild(toast);
+  }
+  toast.innerHTML = `
+    <span>${message}</span>
+    <button type="button" onclick="toggleBagDrawer(true); hideBagToast();">Ver Sacola</button>
+  `;
+  toast.classList.add('show');
+  clearTimeout(window._bagToastTimer);
+  window._bagToastTimer = setTimeout(hideBagToast, 3200);
+}
+
+function hideBagToast() {
+  const toast = document.getElementById('bag-toast');
+  if (toast) toast.classList.remove('show');
 }
 
 function removeFromBag(productId) {
