@@ -1,982 +1,572 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Painel do Lojista | JC PARFUM — Gestão Simplificada</title>
-  <meta name="description" content="Painel administrativo simplificado JC PARFUM para gerenciamento de preços, estoque por unidade e cadastro de perfumes." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/css/style.css" />
-  <link rel="icon" type="image/jpeg" href="assets/img/logo.jpg" />
-  <style>
-    .admin-wrap {
-      max-width: 1260px;
-      margin: 0 auto;
-      padding: 2rem 1.25rem 4rem;
-    }
-
-    .login-card {
-      max-width: 420px;
-      margin: 4rem auto;
-      background: var(--bg-card);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: var(--radius-lg);
-      padding: 2.25rem 1.85rem;
-      box-shadow: var(--shadow-luxury);
-      text-align: center;
-    }
-
-    .admin-topbar {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .admin-topbar h1 {
-      font-size: 1.65rem;
-      font-weight: 700;
-      color: var(--text-primary);
-    }
-
-    .admin-topbar p {
-      font-size: 0.88rem;
-      color: var(--text-secondary);
-      margin-top: 2px;
-    }
-
-    .admin-toolbar-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-      align-items: center;
-    }
-
-    .btn-subtle {
-      background: var(--bg-elevated);
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      color: var(--text-primary);
-      padding: 0.62rem 1rem;
-      border-radius: var(--radius-sm);
-      font-size: 0.82rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: var(--transition);
-      white-space: nowrap;
-    }
-
-    .btn-subtle:hover {
-      border-color: var(--gold-primary);
-      color: var(--gold-light);
-    }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .stat-card {
-      background: var(--bg-card);
-      border: 1px solid rgba(255, 255, 255, 0.09);
-      border-radius: var(--radius-md);
-      padding: 1.15rem 1.25rem;
-    }
-
-    .stat-card span {
-      font-size: 0.74rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--text-muted);
-      font-weight: 600;
-    }
-
-    .stat-card strong {
-      display: block;
-      font-size: 1.85rem;
-      font-weight: 700;
-      color: var(--gold-light);
-      margin-top: 0.25rem;
-    }
-
-    .panel-box {
-      background: var(--bg-card);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: var(--radius-md);
-      padding: 1.5rem;
-    }
-
-    .panel-box-header {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 1.25rem;
-      padding-bottom: 1rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    }
-
-    .panel-box-header h2 {
-      font-size: 1.2rem;
-      font-weight: 700;
-      color: var(--text-primary);
-    }
-
-    .admin-search-input {
-      width: min(340px, 100%);
-      background: var(--bg-obsidian);
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      border-radius: var(--radius-sm);
-      padding: 0.6rem 0.9rem;
-      font-size: 0.86rem;
-      color: var(--text-primary);
-    }
-
-    .admin-search-input:focus {
-      outline: none;
-      border-color: var(--gold-primary);
-    }
-
-    .admin-table-wrap {
-      overflow-x: auto;
-    }
-
-    table.admin-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.88rem;
-    }
-
-    table.admin-table th,
-    table.admin-table td {
-      padding: 0.9rem 0.75rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-      text-align: left;
-      vertical-align: middle;
-    }
-
-    table.admin-table th {
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 0.09em;
-      color: var(--text-muted);
-      font-weight: 700;
-      white-space: nowrap;
-    }
-
-    .price-inline-input {
-      width: 108px;
-      background: var(--bg-obsidian);
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      border-radius: var(--radius-sm);
-      padding: 0.45rem 0.6rem;
-      color: var(--gold-light);
-      font-weight: 700;
-      font-size: 0.9rem;
-    }
-
-    .price-inline-input:focus {
-      outline: none;
-      border-color: var(--gold-primary);
-    }
-
-    .stock-stepper {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      background: var(--bg-obsidian);
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      border-radius: var(--radius-sm);
-      padding: 0.25rem;
-    }
-
-    .stock-stepper button {
-      width: 28px;
-      height: 28px;
-      border: none;
-      background: var(--bg-elevated);
-      color: var(--text-primary);
-      border-radius: 4px;
-      font-weight: 700;
-      font-size: 1rem;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      transition: var(--transition);
-    }
-
-    .stock-stepper button:hover {
-      background: var(--gold-primary);
-      color: #070709;
-    }
-
-    .stock-stepper span {
-      min-width: 38px;
-      text-align: center;
-      font-weight: 700;
-      font-size: 0.86rem;
-      color: var(--text-primary);
-    }
-
-    .status-pill {
-      display: inline-flex;
-      align-items: center;
-      padding: 0.28rem 0.65rem;
-      border-radius: 99px;
-      font-size: 0.74rem;
-      font-weight: 700;
-      white-space: nowrap;
-    }
-
-    .status-pill.in {
-      background: rgba(31, 168, 85, 0.16);
-      color: #5ce68b;
-    }
-
-    .status-pill.low {
-      background: rgba(243, 196, 93, 0.16);
-      color: #f3c45d;
-    }
-
-    .status-pill.out {
-      background: rgba(217, 70, 70, 0.16);
-      color: #f08585;
-    }
-
-    /* Modal de Cadastro / Edição de Perfume (Sem vazamento de bordas!) */
-    .admin-modal-dialog {
-      background: #121217;
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      border-radius: var(--radius-lg);
-      max-width: 680px;
-      width: 100%;
-      max-height: 92vh;
-      overflow-y: auto;
-      padding: 2rem;
-      position: relative;
-      box-shadow: var(--shadow-luxury);
-    }
-
-    .admin-form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.9rem;
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      text-align: left;
-      gap: 0.35rem;
-      margin-bottom: 0.9rem;
-      min-width: 0;
-    }
-
-    .form-group label {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--gold-champagne);
-      font-weight: 600;
-    }
-
-    .form-control {
-      width: 100%;
-      min-width: 0;
-      box-sizing: border-box;
-      background: var(--bg-obsidian);
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      border-radius: var(--radius-sm);
-      padding: 0.68rem 0.85rem;
-      font-size: 0.88rem;
-      color: var(--text-primary);
-    }
-
-    .form-control:focus {
-      outline: none;
-      border-color: var(--gold-primary);
-    }
-
-    .photo-upload-box {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      background: var(--bg-obsidian);
-      border: 1px dashed rgba(255, 255, 255, 0.2);
-      border-radius: var(--radius-sm);
-      padding: 0.75rem;
-    }
-
-    .photo-preview-thumb {
-      width: 56px;
-      height: 56px;
-      object-fit: contain;
-      background: #fff;
-      border-radius: 6px;
-      padding: 4px;
-      flex-shrink: 0;
-    }
-
-    .toast-bar {
-      position: fixed;
-      bottom: 1.5rem;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #16161d;
-      border: 1px solid var(--gold-primary);
-      color: var(--gold-light);
-      padding: 0.75rem 1.4rem;
-      border-radius: 99px;
-      font-size: 0.86rem;
-      font-weight: 600;
-      box-shadow: var(--shadow-luxury);
-      z-index: 400;
-      display: none;
-    }
-
-    @media (max-width: 640px) {
-      .admin-form-grid {
-        grid-template-columns: 1fr;
-        gap: 0;
-      }
-
-      .admin-modal-dialog {
-        padding: 1.5rem 1.15rem;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Área do Lojista | JC PARFUM</title>
+<link rel="icon" href="assets/img/logo.webp">
+<style>
+:root{--linen:#f5f0e6;--cream:#fffaf1;--sand:#e8dfcd;--ink:#26241f;--muted:#5f5a4e;--forest:#2f3b2c;--forest2:#44553f;--gold:#b48a3c;--gold2:#d4ad5a;--clay:#a8553a;--ok:#266b3a;--warn:#a8741a;--line:#e0d5bd;
+--serif:Georgia,'Times New Roman',serif;--sans:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--sans);font-size:18px;line-height:1.45;color:var(--ink);background:var(--linen);min-height:100vh}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+input,select,textarea{font:inherit;color:inherit}
+.btn{padding:14px 22px;border-radius:999px;font-weight:600;font-size:17px;line-height:1.1}
+.btn.p{background:var(--forest);color:#f6eedc}.btn.p:hover{background:var(--forest2)}
+.btn.ok{background:var(--ok);color:#fff}.btn.ok:hover{background:#1e582f}
+.btn.g{border:2px solid var(--gold);color:var(--forest);background:var(--cream)}.btn.g:hover{background:var(--gold2)}
+.btn.d{border:2px solid var(--clay);color:var(--clay)}.btn.d:hover{background:var(--clay);color:#fff}
+.btn.big{padding:18px 28px;font-size:19px}
+.btn.s{padding:10px 16px;font-size:15px}
+.login{min-height:100vh;display:grid;place-items:center;padding:20px}
+.login form{background:var(--cream);border:1px solid var(--line);border-radius:30px;padding:36px 30px;width:100%;max-width:400px;box-shadow:0 20px 50px rgba(40,34,20,.14);text-align:center}
+.login img{width:92px;height:92px;border-radius:50%;margin:0 auto 12px;border:2px solid var(--gold)}
+.login h1{font-family:var(--serif);font-size:30px;color:var(--forest);margin-bottom:4px}
+.login p{color:var(--muted);font-size:16px;margin-bottom:18px}
+.f{margin-bottom:14px;text-align:left}
+.f label{display:block;font-size:16px;font-weight:600;margin-bottom:5px}
+.f small{display:block;color:var(--muted);font-size:14px;margin-top:3px}
+.f input,.f select,.f textarea{width:100%;padding:13px 16px;border-radius:14px;border:2px solid var(--line);background:#fff}
+.f input:focus,.f select:focus,.f textarea:focus{outline:0;border-color:var(--gold)}
+.f textarea{min-height:70px;resize:vertical}
+.showpw{display:flex;gap:8px;align-items:center;font-size:15px;margin:-4px 0 12px;text-align:left;color:var(--muted)}
+.err{color:var(--clay);font-size:16px;min-height:22px;margin-bottom:8px}
+#app{display:none}
+.bar{background:var(--forest);color:#f6eedc;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.bar b{font-family:var(--serif);font-size:22px;letter-spacing:.08em}
+.wrap{max-width:1000px;margin:0 auto;padding:20px 18px 90px}
+.hello{font-family:var(--serif);font-size:30px;color:var(--forest);margin:4px 0 2px}
+.sub{color:var(--muted);margin-bottom:14px;font-size:16px}
+.cloud{background:#fbf0d4;border:1px solid #e6cf93;border-radius:18px;padding:12px 16px;font-size:15px;margin-bottom:16px}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
+.kpi{background:var(--cream);border:1px solid var(--line);border-radius:22px;padding:16px 18px;box-shadow:0 6px 16px rgba(60,50,30,.05)}
+.kpi span{display:block;font-size:14px;color:var(--muted);font-weight:600}
+.kpi b{display:block;font-family:var(--serif);font-size:30px;color:var(--forest);line-height:1.15;margin:2px 0}
+.kpi small{font-size:13px;color:var(--muted)}
+.kpi.money b{color:var(--ok)}
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:20px}
+.tab{padding:15px 6px;border-radius:18px;border:2px solid var(--line);background:var(--cream);font-weight:600;color:var(--muted);font-size:17px}
+.tab.on{background:var(--forest);color:#f6eedc;border-color:var(--forest)}
+.panel{display:none}.panel.on{display:block}
+.help{background:var(--cream);border:1px solid var(--line);border-radius:18px;padding:4px 16px;margin-bottom:16px}
+.help summary{cursor:pointer;font-weight:600;padding:10px 0;color:var(--forest)}
+.help ol{padding:0 0 12px 22px;color:var(--muted)}.help li{margin-bottom:4px}
+.alerts{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.alert{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;background:#fdeee6;border:1px solid #efc7b4;border-radius:16px;padding:12px 16px;font-size:16px}
+.alert.ok{background:#e6f1e2;border-color:#bcd7b4}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.toolbar input{flex:1;min-width:200px;padding:14px 18px;border-radius:999px;border:2px solid var(--line);background:#fff}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.chip{padding:10px 16px;border-radius:999px;border:2px solid var(--line);background:var(--cream);font-size:15px;font-weight:600;color:var(--muted)}
+.chip.on{background:var(--gold2);border-color:var(--gold);color:var(--ink)}
+.item{background:var(--cream);border:1px solid var(--line);border-radius:26px;padding:16px;margin-bottom:14px;display:grid;grid-template-columns:96px 1fr;gap:16px;box-shadow:0 6px 18px rgba(60,50,30,.06)}
+.item.off{opacity:.6}
+.item img{width:96px;height:120px;object-fit:cover;border-radius:16px;border:1px solid var(--line);background:#fff}
+.item h3{font-family:var(--serif);font-size:25px;line-height:1.1;color:var(--forest)}
+.item .br{color:var(--muted);font-size:15px;margin-bottom:6px}
+.price{font-size:17px;margin:4px 0}
+.price b{font-size:19px}
+.price .none{color:var(--clay);font-weight:600}
+.price .pr-old{text-decoration:line-through;color:var(--muted)}
+.subval{font-size:14px;color:var(--muted);margin-top:2px}
+.linkbtn{color:var(--forest);text-decoration:underline;font-weight:600;font-size:16px;padding:4px 4px}
+.stockrow{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:14px 20px;align-items:center;border-top:1px solid var(--line);padding-top:14px}
+.stk .lb{font-size:14px;font-weight:600;color:var(--muted);margin-bottom:4px}
+.step{display:inline-flex;align-items:center;border:2px solid var(--line);border-radius:999px;background:#fff}
+.step button{width:54px;height:54px;font-size:28px;font-weight:600;color:var(--forest)}
+.step button:active{background:var(--sand);border-radius:50%}
+.step input{width:64px;text-align:center;border:0;font-weight:700;font-size:24px;background:transparent}
+.badge{display:inline-block;padding:4px 12px;border-radius:999px;font-size:14px;font-weight:600;margin-right:6px;background:var(--sand);color:var(--forest2)}
+.badge.ok{background:#d9e8d4;color:var(--ok)}.badge.w{background:#f7e3b8;color:var(--warn)}.badge.r{background:#f4d9cf;color:var(--clay)}
+.sw{display:flex;align-items:center;gap:10px;font-size:16px;cursor:pointer}
+.sw input{width:24px;height:24px;accent-color:var(--forest)}
+.rowbtns{display:flex;gap:8px;flex-wrap:wrap;margin-left:auto}
+.box2{background:var(--cream);border:1px solid var(--line);border-radius:24px;padding:20px;margin-bottom:16px}
+.box2 h3{font-family:var(--serif);font-size:24px;color:var(--forest);margin-bottom:4px}
+.box2 .sub{margin-bottom:12px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}
+.modal{position:fixed;inset:0;background:rgba(30,26,16,.55);display:none;align-items:flex-start;justify-content:center;overflow:auto;padding:18px;z-index:20}
+.modal.on{display:flex}
+.mbox{background:var(--cream);border-radius:28px;padding:24px;width:100%;max-width:640px;margin:auto}
+.mbox h3{font-family:var(--serif);font-size:27px;color:var(--forest);margin-bottom:14px}
+.mfoot{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end;margin-top:16px}
+.photos{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+.photo{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:10px}
+.photo img{width:64px;height:80px;object-fit:cover;border-radius:10px;border:1px solid var(--line);background:var(--linen)}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.seg button,.paypick button{padding:13px 6px;border-radius:14px;border:2px solid var(--line);background:#fff;font-weight:600;font-size:16px}
+.seg button.on,.paypick button.on{background:var(--forest);color:#f6eedc;border-color:var(--forest)}
+.paypick{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.pct{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 12px}
+.pct button{padding:12px 18px;border-radius:999px;border:2px solid var(--gold);font-weight:700;background:#fff}
+.pct button.on{background:var(--gold2)}
+.prev{background:#fff;border:2px dashed var(--gold);border-radius:18px;padding:14px 16px;margin-bottom:12px;font-size:17px}
+details.more{border:1px solid var(--line);border-radius:16px;padding:4px 16px;margin:6px 0 4px;background:#fff}
+details.more summary{cursor:pointer;font-weight:600;padding:10px 0;color:var(--forest)}
+.srow{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:12px 0;border-bottom:1px solid var(--line);font-size:16px}
+.srow:last-child{border-bottom:0}
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);background:var(--forest);color:#f6eedc;padding:14px 26px;border-radius:999px;font-size:17px;font-weight:600;opacity:0;pointer-events:none;transition:opacity .25s;z-index:40;max-width:90vw;text-align:center}
+.toast.on{opacity:1}
+.empty{text-align:center;color:var(--muted);padding:30px 10px}
+@media(max-width:720px){.item{grid-template-columns:76px 1fr}.item img{width:76px;height:96px}.grid2,.kpis,.photos{grid-template-columns:1fr}.tabs{grid-template-columns:1fr 1fr}.rowbtns{margin-left:0}body{font-size:17px}}
+</style>
 </head>
 <body>
 
-  <header class="site-header">
-    <div class="header-inner">
-      <a href="index.html" class="brand-identity">
-        <div class="brand-logo-wrap">
-          <img src="assets/img/logo.jpg" alt="JC PARFUM" />
-        </div>
-        <div class="brand-titles">
-          <span class="brand-name">JC PARFUM</span>
-          <span class="brand-sub">Painel do Lojista</span>
-        </div>
-      </a>
+<div class="login" id="login">
+  <form id="lf">
+    <img src="assets/img/logo.webp" alt="">
+    <h1>Área do Lojista</h1>
+    <p>Entre para cuidar dos seus perfumes e vendas.</p>
+    <div class="f"><label>Usuário</label><input id="u" autocomplete="username" autocapitalize="none"></div>
+    <div class="f"><label>Senha</label><input id="pw" type="password" autocomplete="current-password"></div>
+    <label class="showpw"><input type="checkbox" id="sp"> Mostrar senha</label>
+    <div class="err" id="err"></div>
+    <button class="btn p big" style="width:100%">Entrar</button>
+  </form>
+</div>
 
-      <div class="header-actions">
-        <a href="index.html" class="btn-subtle">
-          ← Ver Vitrine
-        </a>
-        <button type="button" id="logout-btn" onclick="handleLogout()" class="btn-subtle" style="display: none;">
-          Sair
-        </button>
-      </div>
+<div id="app">
+  <div class="bar"><b>JC PARFUM</b><div style="display:flex;gap:10px"><a class="btn g s" href="index.html" target="_blank" style="text-decoration:none">Ver o site</a><button class="btn s" id="logout" style="border:2px solid var(--gold2);color:#f6eedc">Sair</button></div></div>
+  <div class="wrap">
+    <h1 class="hello">Olá! O que vamos fazer hoje?</h1>
+    <p class="sub">Tudo que você muda aqui é salvo na hora.</p>
+    <div class="cloud"><b>Importante:</b> por enquanto os dados ficam salvos só neste aparelho. Para valerem em qualquer celular ou computador, é preciso ativar a sincronização em nuvem.</div>
+
+    <div class="kpis" id="kpis"></div>
+
+    <div class="tabs" id="tabs">
+      <button class="tab on" data-t="prod">Meus perfumes</button>
+      <button class="tab" data-t="fin">Vendas e Caixa</button>
+      <button class="tab" data-t="promo">Promoções</button>
+      <button class="tab" data-t="cfg">Ajustes</button>
     </div>
-  </header>
 
-  <main class="admin-wrap">
-    <!-- TELA DE LOGIN -->
-    <section id="login-section" class="login-card">
-      <div class="brand-logo-wrap" style="width: 74px; height: 74px; margin: 0 auto 1rem;">
-        <img src="assets/img/logo.jpg" alt="JC PARFUM Logo" />
-      </div>
-      <h1 style="font-size: 1.5rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem;">
-        Acesso do Lojista
-      </h1>
-      <p style="font-size: 0.86rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
-        Gerencie preços, quantidades em estoque e novos perfumes
-      </p>
-
-      <form id="login-form" onsubmit="handleLogin(event)">
-        <div class="form-group">
-          <label for="admin-user">Usuário</label>
-          <input type="text" id="admin-user" class="form-control" placeholder="jcparfum" required />
-        </div>
-        <div class="form-group">
-          <label for="admin-pass">Senha</label>
-          <input type="password" id="admin-pass" class="form-control" placeholder="••••••••" required />
-        </div>
-        <p id="login-error" style="color: #f07575; font-size: 0.82rem; margin-bottom: 0.9rem; display: none;">
-          Usuário ou senha incorretos. Verifique os dados de acesso.
-        </p>
-        <button type="submit" class="btn-gold" style="width: 100%;" id="login-submit-btn">
-          Entrar no Painel
-        </button>
-      </form>
+    <section class="panel on" id="p-prod">
+      <details class="help"><summary>Como usar esta tela (toque para ler)</summary>
+        <ol><li>Quando vender um perfume, toque no botão verde <b>Vendi 1</b>. Ele já desconta do estoque e soma no seu caixa.</li>
+        <li>Quando chegar mercadoria, toque em <b>+</b> para aumentar as unidades.</li>
+        <li>Para colocar ou mudar o preço (e o quanto você pagou de custo), toque em <b>Informar preço</b> ou <b>Alterar preço</b>.</li>
+        <li>Para o perfume sumir do site sem apagar, desmarque <b>Aparece no site</b>.</li></ol>
+      </details>
+      <div class="alerts" id="alerts"></div>
+      <div class="toolbar"><input type="search" id="sq" placeholder="Procurar perfume ou marca"><button class="btn p big" id="newP">+ Novo perfume</button></div>
+      <div class="chips" id="chips"></div>
+      <div id="plist"></div>
     </section>
 
-    <!-- DASHBOARD DO LOJISTA SIMPLIFICADO -->
-    <section id="dashboard-section" style="display: none;">
-      <div class="admin-topbar">
-        <div>
-          <h1>Controle da Loja</h1>
-          <p>Atualize quantidades, preços e cadastre novos perfumes em segundos.</p>
-        </div>
-
-        <div class="admin-toolbar-actions">
-          <button type="button" class="btn-gold" onclick="openProductFormModal()">
-            + Novo Perfume
-          </button>
-          <button type="button" class="btn-subtle" onclick="copyStoreLink()">
-            Copiar Link da Loja
-          </button>
-          <button type="button" class="btn-subtle" onclick="exportBackup()">
-            Exportar Backup
-          </button>
-          <label class="btn-subtle" style="cursor: pointer;">
-            Importar Backup
-            <input type="file" accept=".json" onchange="importBackup(event)" style="display: none;" />
-          </label>
-          <button type="button" class="btn-subtle" onclick="handleResetDefault()">
-            Restaurar Padrão
-          </button>
+    <section class="panel" id="p-fin">
+      <div class="box2">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+          <div><h3>Vendas e Caixa</h3><p class="sub" style="margin:0">Veja quanto o seu estoque vale e tudo que você já arrecadou.</p></div>
+          <button class="btn ok big" id="newSale">+ Registrar uma venda</button>
         </div>
       </div>
-
-      <!-- Indicadores Simples -->
-      <div class="stats-grid">
-        <div class="stat-card">
-          <span>Perfumes Cadastrados</span>
-          <strong id="stat-total">0</strong>
-        </div>
-        <div class="stat-card">
-          <span>Unidades em Estoque</span>
-          <strong id="stat-units" style="color: #5ce68b;">0</strong>
-        </div>
-        <div class="stat-card">
-          <span>Esgotados (0 un.)</span>
-          <strong id="stat-outstock" style="color: #f08585;">0</strong>
-        </div>
-        <div class="stat-card">
-          <span>Valor Médio</span>
-          <strong id="stat-avg">R$ 0,00</strong>
-        </div>
+      <div id="finCards"></div>
+      <div class="box2">
+        <h3>Quanto vale cada perfume no estoque</h3>
+        <p class="sub">Calculado pelas unidades que você tem vezes o preço à vista.</p>
+        <div id="stockTable"></div>
       </div>
-
-      <!-- Tabela Espaçosa em Largura Total -->
-      <div class="panel-box">
-        <div class="panel-box-header">
-          <h2>Seus Perfumes na Vitrine</h2>
-          <input
-            type="search"
-            id="admin-search"
-            class="admin-search-input"
-            placeholder="Buscar perfume ou marca..."
-            oninput="renderAdminTable()"
-          />
+      <div class="box2">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px">
+          <div><h3>Histórico de vendas</h3><p class="sub" style="margin:0">Se registrou algo errado, toque em "Desfazer".</p></div>
+          <div class="chips" id="sfilt" style="margin:0"></div>
         </div>
-
-        <div class="admin-table-wrap">
-          <table class="admin-table">
-            <thead>
-              <tr>
-                <th>Perfume</th>
-                <th>Categoria</th>
-                <th>Preço (R$)</th>
-                <th>Estoque (Unidades)</th>
-                <th>Status na Vitrine</th>
-                <th>Ações</th>
-              </tr>
-            </thead>
-            <tbody id="admin-products-tbody"></tbody>
-          </table>
-        </div>
+        <div id="slist"></div>
       </div>
     </section>
-  </main>
 
-  <!-- Modal Limpo para Cadastrar ou Editar Perfume -->
-  <div class="modal-backdrop" id="admin-form-modal" role="dialog" aria-modal="true">
-    <div class="admin-modal-dialog">
-      <button type="button" class="modal-close" onclick="closeProductFormModal()" aria-label="Fechar">✕</button>
-      <h2 id="form-panel-title" style="font-size: 1.35rem; font-weight: 700; color: var(--gold-light); margin-bottom: 1.25rem;">
-        Cadastrar Novo Perfume
-      </h2>
+    <section class="panel" id="p-promo">
+      <div class="box2"><h3>Promoções</h3><p class="sub">Escolha um desconto e o site mostra o preço antigo riscado e uma etiqueta de oferta.</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn p" id="promoAll">Promoção em todos os perfumes</button>
+          <button class="btn g" id="promoOne">Promoção em um perfume</button>
+          <button class="btn d" id="promoEnd">Encerrar todas</button>
+        </div></div>
+      <div id="prlist"></div>
+    </section>
 
-      <form id="product-form" onsubmit="handleSaveProduct(event)">
-        <input type="hidden" id="prod-id" value="" />
+    <section class="panel" id="p-cfg">
+      <div class="box2"><h3>Contato</h3><p class="sub">Usado nos botões do site para mandar o cliente para o seu WhatsApp e Instagram.</p>
+        <div class="grid2">
+          <div class="f"><label>WhatsApp da loja</label><input id="c_wa" inputmode="numeric"><small>Com 55 e DDD. Ex.: 559681197608</small></div>
+          <div class="f"><label>Instagram</label><input id="c_ig"><small>Sem o @</small></div>
+        </div></div>
+      <div class="box2"><h3>Pagamento</h3><p class="sub">Marque o que você aceita. O cliente escolhe antes de enviar o pedido.</p>
+        <div style="display:flex;gap:10px 26px;flex-wrap:wrap;margin-bottom:12px">
+          <label class="sw"><input type="checkbox" id="c_pix"> Pix</label><label class="sw"><input type="checkbox" id="c_cash"> Dinheiro</label>
+          <label class="sw"><input type="checkbox" id="c_deb"> Cartão de débito</label><label class="sw"><input type="checkbox" id="c_cre"> Cartão de crédito</label></div>
+        <div class="f" style="max-width:300px"><label>Parcelar em até quantas vezes?</label><input id="c_mi" type="number" min="1" max="12"></div></div>
+      <div class="box2"><h3>Avisos do site</h3>
+        <div class="f"><label>Aviso no topo do site</label><input id="c_bn" placeholder="Ex.: Frete grátis em Macapá neste fim de semana"><small>Deixe vazio para não mostrar nada.</small></div>
+        <div class="f"><label>Texto sobre entrega (rodapé)</label><input id="c_dn"></div></div>
+      <div class="box2"><h3>Senha do painel</h3>
+        <div class="f" style="max-width:340px"><label>Nova senha</label><input id="c_pw" type="password" placeholder="Deixe vazio para manter a atual"><small>Mínimo de 6 caracteres.</small></div></div>
+      <button class="btn p big" id="saveCfg">Salvar ajustes</button>
 
-        <div class="admin-form-grid">
-          <div class="form-group">
-            <label for="prod-name">Nome do Perfume *</label>
-            <input type="text" id="prod-name" class="form-control" placeholder="Ex: Asad Lattafa" required />
-          </div>
-          <div class="form-group">
-            <label for="prod-brand">Marca *</label>
-            <input type="text" id="prod-brand" class="form-control" placeholder="Ex: Lattafa" required />
-          </div>
-        </div>
-
-        <div class="admin-form-grid">
-          <div class="form-group">
-            <label for="prod-category">Categoria *</label>
-            <select id="prod-category" class="form-control" required>
-              <option value="Masculino">Masculino</option>
-              <option value="Feminino">Feminino</option>
-              <option value="Unissex">Unissex</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="prod-qty">Quantidade em Estoque *</label>
-            <input type="number" min="0" step="1" id="prod-qty" class="form-control" value="5" required />
-          </div>
-        </div>
-
-        <div class="admin-form-grid">
-          <div class="form-group">
-            <label for="prod-price">Preço de Venda (R$) *</label>
-            <input type="number" step="0.01" min="1" id="prod-price" class="form-control" placeholder="350.00" required />
-          </div>
-          <div class="form-group">
-            <label for="prod-old-price">Preço Antigo (Se em Promoção)</label>
-            <input type="number" step="0.01" min="0" id="prod-old-price" class="form-control" placeholder="Opcional (Ex: 390.00)" />
-          </div>
-        </div>
-
-        <div class="admin-form-grid">
-          <div class="form-group">
-            <label for="prod-badge">Selo de Destaque</label>
-            <input type="text" id="prod-badge" class="form-control" placeholder="Ex: Mais Vendido" />
-          </div>
-          <div class="form-group">
-            <label for="prod-volume">Volume / Tipo</label>
-            <input type="text" id="prod-volume" class="form-control" value="100ml · Eau de Parfum" />
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label>Foto do Perfume (Enviar do Aparelho ou Colar Link)</label>
-          <div class="photo-upload-box">
-            <img id="prod-image-preview" src="assets/img/logo.jpg" alt="Prévia" class="photo-preview-thumb" />
-            <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.45rem;">
-              <input type="text" id="prod-image" class="form-control" placeholder="Link da imagem (https://...) ou envie abaixo" oninput="updateImagePreview(this.value)" />
-              <label class="btn-subtle" style="display: inline-block; text-align: center; padding: 0.4rem 0.75rem; font-size: 0.78rem;">
-                Escolher Foto do Celular / Computador
-                <input type="file" accept="image/*" onchange="handleLocalImageUpload(event)" style="display: none;" />
-              </label>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="prod-desc">Descrição Curta *</label>
-          <textarea id="prod-desc" rows="2" class="form-control" placeholder="Ex: Fragrância marcante com ótima fixação..." required></textarea>
-        </div>
-
-        <div style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 0.9rem; margin-top: 0.4rem;">
-          <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em;">
-            Pirâmide Olfativa (Opcional)
-          </p>
-          <div class="form-group">
-            <label for="prod-notes-top">Notas de Saída (Topo)</label>
-            <input type="text" id="prod-notes-top" class="form-control" placeholder="Ex: Bergamota, Pimenta Preta, Açafrão" />
-          </div>
-          <div class="form-group">
-            <label for="prod-notes-heart">Notas de Coração</label>
-            <input type="text" id="prod-notes-heart" class="form-control" placeholder="Ex: Rosa, Madeiras Nobres, Caramelo" />
-          </div>
-          <div class="form-group">
-            <label for="prod-notes-base">Notas de Fundo (Base)</label>
-            <input type="text" id="prod-notes-base" class="form-control" placeholder="Ex: Âmbar, Baunilha, Oud, Almíscar" />
-          </div>
-        </div>
-
-        <div style="display: flex; gap: 0.75rem; margin-top: 1rem;">
-          <button type="submit" class="btn-gold" style="flex: 1;">
-            Salvar Alterações
-          </button>
-          <button type="button" class="btn-subtle" onclick="closeProductFormModal()">
-            Cancelar
-          </button>
-        </div>
-      </form>
-    </div>
+      <div class="box2" style="margin-top:22px"><h3>Cópia de segurança</h3>
+        <p class="sub">Guarde uma cópia dos perfumes e vendas. Se trocar de aparelho, você restaura.</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn p" id="exp">Baixar cópia</button>
+          <label class="btn g" style="cursor:pointer">Restaurar uma cópia<input type="file" id="imp" accept=".json" hidden></label>
+          <button class="btn d" id="reset">Voltar ao original</button></div></div>
+    </section>
   </div>
+</div>
 
-  <div id="toast-bar" class="toast-bar">Alteração salva com sucesso!</div>
+<div class="modal" id="modal"><div class="mbox" id="mbox"></div></div>
+<div class="toast" id="toast"></div>
 
-  <script src="assets/js/products.js?v=3"></script>
-  <script>
-    const ADMIN_SESSION_KEY = 'jc_parfum_admin_logged_v2';
+<script src="assets/catalog.js"></script>
+<script>
+(function(){
+  var $=function(s){return document.querySelector(s)}, $$=function(s){return Array.prototype.slice.call(document.querySelectorAll(s))};
+  var money=JC.money, DEF_USER='jcparfum', DEF_PASS='87654321';
+  var ss={get:function(k){try{return sessionStorage.getItem(k)}catch(e){return JC.store.get(k)}},set:function(k,v){try{sessionStorage.setItem(k,v)}catch(e){JC.store.set(k,v)}},del:function(k){try{sessionStorage.removeItem(k)}catch(e){JC.store.del(k)}}};
+  var P=JC.loadCatalog(), S=JC.loadSettings(), V=JC.loadSales(), filter='all', sfilter='month', onSave=null;
+  function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  var tt;function toast(t){var e=$('#toast');e.textContent=t;e.classList.add('on');clearTimeout(tt);tt=setTimeout(function(){e.classList.remove('on')},2400)}
+  function save(){JC.saveCatalog(P);JC.saveSales(V);renderKpis()}
+  function num(v){v=String(v==null?'':v).trim().replace(/[R$\s]/g,'').replace(/\./g,function(m,o,s){return /,/.test(s)?'':m}).replace(',','.');return v===''||isNaN(Number(v))||Number(v)<=0?null:Number(v)}
+  function find(id){return P.filter(function(p){return p.id===id})[0]}
+  function r2(n){return Math.round(n*100)/100}
 
-    document.addEventListener('DOMContentLoaded', () => {
-      if (sessionStorage.getItem(ADMIN_SESSION_KEY) === 'true') {
-        showDashboard();
+  /* login */
+  function enter(){$('#login').style.display='none';$('#app').style.display='block';renderAll()}
+  if(ss.get('jc_admin_ok')==='1') enter();
+  $('#sp').onchange=function(e){$('#pw').type=e.target.checked?'text':'password'};
+  $('#lf').addEventListener('submit',function(e){
+    e.preventDefault();
+    var pass=JC.store.get('jc_admin_pass')||DEF_PASS;
+    if($('#u').value.trim().toLowerCase()===DEF_USER && $('#pw').value===pass){ss.set('jc_admin_ok','1');enter()}
+    else $('#err').textContent='Usuário ou senha incorretos. Tente de novo.';
+  });
+  $('#logout').onclick=function(){ss.del('jc_admin_ok');location.reload()};
+  $('#tabs').addEventListener('click',function(e){var b=e.target.closest('.tab');if(!b)return;
+    $$('.tab').forEach(function(t){t.classList.toggle('on',t===b)});
+    $$('.panel').forEach(function(p){p.classList.toggle('on',p.id==='p-'+b.dataset.t)});
+    renderAll();});
+
+  /* modal */
+  function openModal(html){$('#mbox').innerHTML=html;$('#modal').classList.add('on');$('#modal').scrollTop=0}
+  function closeModal(){$('#modal').classList.remove('on');onSave=null}
+  $('#modal').addEventListener('click',function(e){if(e.target.id==='modal')closeModal();if(e.target.dataset.close)closeModal();if(e.target.dataset.ok&&onSave)onSave(e.target)});
+
+  /* cálculos financeiros */
+  function finance(){
+    var units=0, stockSale=0, stockCost=0, hasCost=false, unpricedInStock=0;
+    P.forEach(function(p){
+      units+=p.stock;
+      var pr=JC.pricing(p).cash;
+      if(p.stock>0){
+        if(pr!=null) stockSale+=p.stock*pr; else unpricedInStock+=p.stock;
+        if(p.cost!=null){ stockCost+=p.stock*p.cost; hasCost=true; }
       }
     });
+    var now=new Date(), dStr=now.toISOString().slice(0,10), mStr=dStr.slice(0,7);
+    var revToday=0, revMonth=0, revAll=0, profitMonth=0, profitAll=0, hasSaleCost=false, cntMonth=0;
+    V.forEach(function(s){
+      var dt=(s.date||'').slice(0,10);
+      revAll+=s.total;
+      if(s.cost!=null){ profitAll+=s.total-(s.cost*s.qty); hasSaleCost=true; }
+      if(dt.slice(0,7)===mStr){ revMonth+=s.total; cntMonth+=s.qty; if(s.cost!=null) profitMonth+=s.total-(s.cost*s.qty); }
+      if(dt===dStr) revToday+=s.total;
+    });
+    return {units:units,stockSale:stockSale,stockCost:stockCost,hasCost:hasCost,unpricedInStock:unpricedInStock,
+      revToday:revToday,revMonth:revMonth,revAll:revAll,profitMonth:profitMonth,profitAll:profitAll,hasSaleCost:hasSaleCost,cntMonth:cntMonth};
+  }
+  function renderKpis(){
+    var f=finance();
+    $('#kpis').innerHTML=
+      '<div class="kpi"><span>Unidades em estoque</span><b>'+f.units+' un.</b><small>em '+P.filter(function(p){return p.stock>0}).length+' perfumes</small></div>'+
+      '<div class="kpi"><span>Valor do estoque (à vista)</span><b>'+money(f.stockSale)+'</b><small>'+(f.unpricedInStock?f.unpricedInStock+' un. ainda sem preço':'se vender tudo que tem')+'</small></div>'+
+      '<div class="kpi money"><span>Arrecadado neste mês</span><b>'+money(f.revMonth)+'</b><small>'+f.cntMonth+' vendido(s) &middot; hoje: '+money(f.revToday)+'</small></div>';
+  }
 
-    function handleLogin(e) {
-      e.preventDefault();
-      const user = document.getElementById('admin-user').value.trim().toLowerCase();
-      const pass = document.getElementById('admin-pass').value.trim();
-      const errEl = document.getElementById('login-error');
+  /* ---------- Meus perfumes ---------- */
+  function noPrice(p){return p.price==null}
+  function counts(){return{
+    all:P.length, noprice:P.filter(noPrice).length,
+    low:P.filter(function(p){return p.stock<=1}).length,
+    promo:P.filter(function(p){return JC.pricing(p).onPromo}).length,
+    hidden:P.filter(function(p){return !p.active}).length}}
+  function renderAlerts(){
+    var c=counts(),a=[];
+    if(c.noprice) a.push('<div class="alert"><span><b>'+c.noprice+' perfume'+(c.noprice>1?'s estão':' está')+' sem preço.</b> No site aparece "Preço a consultar" e eles não entram na conta do estoque.</span><button class="btn s p" data-f="noprice">Informar preços</button></div>');
+    $('#alerts').innerHTML=a.join('');
+    var ch=[['all','Todos',c.all],['noprice','Sem preço',c.noprice],['low','Acabando ou acabou',c.low],['promo','Em promoção',c.promo],['hidden','Escondidos',c.hidden]];
+    $('#chips').innerHTML=ch.map(function(x){return '<button class="chip'+(filter===x[0]?' on':'')+'" data-f="'+x[0]+'">'+x[1]+' ('+x[2]+')</button>'}).join('');
+  }
+  $('#app').addEventListener('click',function(e){var f=e.target.closest('[data-f]');if(f){filter=f.dataset.f;renderProd()}});
 
-      if ((user === 'jcparfum' || user === 'admin') && pass === '87654321') {
-        sessionStorage.setItem(ADMIN_SESSION_KEY, 'true');
-        errEl.style.display = 'none';
-        showDashboard();
-      } else {
-        errEl.style.display = 'block';
+  function priceHtml(p){
+    var pr=JC.pricing(p);
+    if(pr.cash==null) return '<span class="none">Sem preço informado</span> <button class="linkbtn" data-act="price" data-id="'+p.id+'">Informar preço</button>';
+    var h=(pr.onPromo&&pr.oldCash?'<span class="pr-old">'+money(pr.oldCash)+'</span> ':'')+'<b>'+money(pr.cash)+'</b> à vista'+(pr.inst?' &middot; '+money(pr.inst)+' parcelado':'');
+    return h+' <button class="linkbtn" data-act="price" data-id="'+p.id+'">Alterar preço</button>';
+  }
+  function statusBadge(p){
+    if(p.stock>1) return '<span class="badge ok">Em estoque</span>';
+    if(p.stock===1) return '<span class="badge w">Última unidade</span>';
+    return p.preorder?'<span class="badge">Acabou &middot; aceita encomenda</span>':'<span class="badge r">Acabou &middot; indisponível</span>';
+  }
+  function renderProd(){
+    renderAlerts();
+    var q=$('#sq').value.toLowerCase().trim();
+    var l=P.filter(function(p){
+      if(q&&(p.name+' '+p.brand).toLowerCase().indexOf(q)<0) return false;
+      return filter==='all'||(filter==='noprice'&&noPrice(p))||(filter==='low'&&p.stock<=1)||(filter==='promo'&&JC.pricing(p).onPromo)||(filter==='hidden'&&!p.active);
+    });
+    $('#plist').innerHTML=l.map(function(p){
+      var pr=JC.pricing(p), sub=[];
+      if(p.stock>0&&pr.cash!=null) sub.push('Total em estoque: <b>'+money(p.stock*pr.cash)+'</b>');
+      if(p.cost!=null&&pr.cash!=null) sub.push('Lucro por unidade: <b>'+money(pr.cash-p.cost)+'</b>');
+      return '<div class="item'+(p.active?'':' off')+'" data-id="'+p.id+'"><img src="'+esc(p.image)+'" alt="" onerror="this.src=\'assets/img/logo.webp\'">'+
+      '<div><h3>'+esc(p.name)+'</h3><div class="br">'+esc(p.brand||'Sem marca')+' &middot; '+esc(p.category)+' &middot; '+((p.images||[]).length||1)+' foto(s)'+(pr.onPromo?' &middot; <b style="color:var(--clay)">EM PROMOÇÃO</b>':'')+'</div>'+
+      '<div class="price">'+priceHtml(p)+'</div>'+(sub.length?'<div class="subval">'+sub.join(' &middot; ')+'</div>':'')+'</div>'+
+      '<div class="stockrow"><div class="stk"><div class="lb">Unidades que tenho</div><div class="step"><button data-act="dn" data-id="'+p.id+'" aria-label="Diminuir">&minus;</button><input type="number" min="0" inputmode="numeric" value="'+p.stock+'" data-st="'+p.id+'"><button data-act="up" data-id="'+p.id+'" aria-label="Aumentar">+</button></div></div>'+
+      '<div>'+statusBadge(p)+'<div style="height:8px"></div><label class="sw"><input type="checkbox" data-pre="'+p.id+'" '+(p.preorder?'checked':'')+'> Aceita encomenda quando acabar</label>'+
+      '<label class="sw" style="margin-top:6px"><input type="checkbox" data-vis="'+p.id+'" '+(p.active?'checked':'')+'> Aparece no site</label></div>'+
+      '<div class="rowbtns"><button class="btn ok s" data-act="sold" data-id="'+p.id+'">Vendi 1</button><button class="btn g s" data-act="promo" data-id="'+p.id+'">Promoção</button><button class="btn g s" data-act="edit" data-id="'+p.id+'">Editar tudo</button><button class="btn d s" data-act="del" data-id="'+p.id+'">Apagar</button></div></div></div>';
+    }).join('')||'<div class="empty">Nenhum perfume nesta lista.</div>';
+  }
+  $('#sq').addEventListener('input',renderProd);
+  $('#newP').onclick=function(){editModal()};
+
+  $('#plist').addEventListener('click',function(e){
+    var b=e.target.closest('[data-act]'); if(!b) return; var p=find(b.dataset.id), a=b.dataset.act;
+    if(a==='up'||a==='dn'){p.stock=Math.max(0,p.stock+(a==='up'?1:-1));save();renderProd();toast(p.name+': '+p.stock+(p.stock===1?' unidade':' unidades'))}
+    else if(a==='sold') saleModal(p);
+    else if(a==='price') priceModal(p);
+    else if(a==='promo') promoModal(p);
+    else if(a==='edit') editModal(p);
+    else if(a==='del'){ if(confirm('Apagar "'+p.name+'" de vez?\n\nDica: se for só para esconder do site, desmarque "Aparece no site".')){P=P.filter(function(x){return x.id!==p.id});save();renderAll();toast('Perfume apagado')}}
+  });
+  $('#plist').addEventListener('change',function(e){
+    var t=e.target,p;
+    if(t.dataset.st){p=find(t.dataset.st);p.stock=Math.max(0,parseInt(t.value,10)||0);toast('Salvo: '+p.stock+' unidades')}
+    else if(t.dataset.pre){p=find(t.dataset.pre);p.preorder=t.checked;toast(t.checked?'Aceitando encomendas':'Encomenda desligada')}
+    else if(t.dataset.vis){p=find(t.dataset.vis);p.active=t.checked;toast(t.checked?'Agora aparece no site':'Escondido do site')}
+    else return; save(); renderProd();
+  });
+
+  /* preço + custo rápido */
+  function priceModal(p){
+    openModal('<h3>Preço: '+esc(p.name)+'</h3>'+
+      '<div class="f"><label>Preço à vista (R$) *</label><input id="m_p" inputmode="decimal" value="'+(p.price!=null?String(p.price).replace('.',','):'')+'" placeholder="Ex.: 250"><small>Pix, dinheiro ou débito.</small></div>'+
+      '<div class="f"><label>Preço parcelado no cartão (R$)</label><input id="m_i" inputmode="decimal" value="'+(p.priceInstallment!=null?String(p.priceInstallment).replace('.',','):'')+'" placeholder="Ex.: 275"><small>Deixe vazio se for o mesmo valor.</small></div>'+
+      '<div class="f"><label>Quanto você pagou nele (custo, opcional)</label><input id="m_c" inputmode="decimal" value="'+(p.cost!=null?String(p.cost).replace('.',','):'')+'" placeholder="Ex.: 150"><small>Só você vê. Serve para calcular seu lucro.</small></div>'+
+      '<div class="mfoot"><button class="btn g" data-close="1">Cancelar</button><button class="btn p" data-ok="1">Salvar preço</button></div>');
+    onSave=function(){var a=num($('#m_p').value),b=num($('#m_i').value),c=num($('#m_c').value);if(a==null){toast('Digite o preço à vista');return}
+      p.price=a;p.priceInstallment=b;p.cost=c;if(p.promo)p.promo=null;save();closeModal();renderAll();toast('Preço salvo')};
+  }
+
+  /* ---------- registrar venda ---------- */
+  function saleModal(preP){
+    var curP = preP || P[0], method='Pix';
+    function defVal(p,m,q){
+      if(!p) return '';
+      var pr=JC.pricing(p), u=(m==='Cartão de crédito'&&pr.inst!=null)?pr.inst:pr.cash;
+      return u!=null?String(r2(u*q)).replace('.',','):'';
+    }
+    var selHtml = preP ? '<p class="sub" style="margin-bottom:12px">Perfume: <b>'+esc(preP.name)+'</b> (tem '+preP.stock+' no estoque)</p>'
+      : '<div class="f"><label>Qual perfume você vendeu?</label><select id="s_p">'+P.map(function(p){var pr=JC.pricing(p).cash;return '<option value="'+p.id+'">'+esc(p.name)+' ('+(pr?money(pr):'sem preço')+' · '+p.stock+' un.)</option>'}).join('')+'</select></div>';
+    openModal('<h3>Registrar venda</h3>'+selHtml+
+      '<div class="grid2"><div class="f"><label>Quantas unidades?</label><input id="s_q" type="number" min="1" value="1" inputmode="numeric"></div>'+
+      '<div class="f"><label>Valor total recebido (R$) *</label><input id="s_v" inputmode="decimal" value="'+defVal(curP,method,1)+'" placeholder="Ex.: 250"></div></div>'+
+      '<div class="f"><label>Como o cliente pagou?</label><div class="paypick" id="s_m">'+['Pix','Dinheiro','Cartão de débito','Cartão de crédito'].map(function(m){return '<button type="button" data-m="'+m+'" class="'+(m===method?'on':'')+'">'+m+'</button>'}).join('')+'</div></div>'+
+      '<div class="f"><label>Nome do cliente ou observação (opcional)</label><input id="s_n" placeholder="Ex.: Maria"></div>'+
+      '<label class="sw"><input type="checkbox" id="s_d" checked> Descontar automaticamente do estoque</label>'+
+      '<div class="mfoot"><button class="btn g" data-close="1">Cancelar</button><button class="btn ok" data-ok="1">Confirmar venda</button></div>');
+    function recalc(){var q=Math.max(1,parseInt($('#s_q').value,10)||1),v=defVal(curP,method,q);if(v)$('#s_v').value=v}
+    if(!preP) $('#s_p').onchange=function(){curP=find($('#s_p').value);recalc()};
+    $('#s_q').oninput=recalc;
+    $('#s_m').onclick=function(e){var b=e.target.closest('button');if(!b)return;method=b.dataset.m;$$('#s_m button').forEach(function(x){x.classList.toggle('on',x===b)});recalc()};
+    onSave=function(){
+      var q=Math.max(1,parseInt($('#s_q').value,10)||1), tot=num($('#s_v').value);
+      if(tot==null){toast('Digite o valor recebido');return}
+      var dec=$('#s_d').checked && curP.stock>0, decQty=dec?Math.min(curP.stock,q):0;
+      if(dec) curP.stock=Math.max(0,curP.stock-q);
+      V.unshift({id:'v'+Date.now(),date:new Date().toISOString(),productId:curP.id,productName:curP.name,qty:q,total:tot,cost:curP.cost,method:method,note:$('#s_n').value.trim(),decQty:decQty});
+      save();closeModal();renderAll();toast('Venda registrada: '+money(tot));
+    };
+  }
+  $('#newSale').onclick=function(){saleModal(null)};
+
+  function renderFin(){
+    var f=finance();
+    $('#finCards').innerHTML=
+      '<div class="kpis">'+
+      '<div class="kpi money"><span>Vendido hoje</span><b>'+money(f.revToday)+'</b><small>entradas registradas hoje</small></div>'+
+      '<div class="kpi money"><span>Vendido neste mês</span><b>'+money(f.revMonth)+'</b><small>'+f.cntMonth+' perfume(s) no mês</small></div>'+
+      '<div class="kpi money"><span>Total já arrecadado</span><b>'+money(f.revAll)+'</b><small>'+(f.hasSaleCost?'Lucro estimado: '+money(f.profitAll):'Informe o custo para ver o lucro')+'</small></div>'+
+      '<div class="kpi"><span>Valor do estoque (à vista)</span><b>'+money(f.stockSale)+'</b><small>'+f.units+' unidades guardadas</small></div>'+
+      '<div class="kpi"><span>Custo do estoque</span><b>'+(f.hasCost?money(f.stockCost):'Não informado')+'</b><small>'+(f.hasCost?'quanto você investiu':'opcional em "Alterar preço"')+'</small></div>'+
+      '<div class="kpi"><span>Lucro previsto no estoque</span><b>'+(f.hasCost?money(f.stockSale-f.stockCost):'—')+'</b><small>'+(f.hasCost?'quando vender o que tem':'informe o custo para calcular')+'</small></div>'+
+      '</div>';
+    var inStock=P.filter(function(p){return p.stock>0});
+    $('#stockTable').innerHTML=inStock.length?inStock.map(function(p){
+      var pr=JC.pricing(p).cash;
+      return '<div class="srow"><div><b>'+esc(p.name)+'</b> &middot; '+p.stock+' un.</div><div>'+(pr!=null?'<b>'+money(p.stock*pr)+'</b> <small style="color:var(--muted)">('+money(pr)+' cada)</small>':'<span style="color:var(--clay)">Sem preço</span> <button class="linkbtn" data-sp="'+p.id+'">Informar</button>')+'</div></div>';
+    }).join(''):'<div class="empty">Nenhum perfume com unidades em estoque no momento.</div>';
+
+    var now=new Date(), dStr=now.toISOString().slice(0,10), mStr=dStr.slice(0,7);
+    $('#sfilt').innerHTML=[['today','Hoje'],['month','Este mês'],['all','Tudo']].map(function(x){return '<button class="chip'+(sfilter===x[0]?' on':'')+'" data-sf="'+x[0]+'">'+x[1]+'</button>'}).join('');
+    var list=V.filter(function(s){var d=(s.date||'').slice(0,10);return sfilter==='all'||(sfilter==='today'&&d===dStr)||(sfilter==='month'&&d.slice(0,7)===mStr)});
+    $('#slist').innerHTML=list.length?list.map(function(s){
+      var d=new Date(s.date), ds=isNaN(d)?'':d.toLocaleDateString('pt-BR')+' '+d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+      return '<div class="srow"><div><b>'+s.qty+'x '+esc(s.productName)+'</b> &middot; '+esc(s.method)+(s.note?' &middot; '+esc(s.note):'')+'<div style="font-size:13px;color:var(--muted)">'+ds+'</div></div>'+
+        '<div style="display:flex;align-items:center;gap:12px"><b style="color:var(--ok)">'+money(s.total)+'</b><button class="btn d s" data-undo="'+s.id+'">Desfazer</button></div></div>';
+    }).join(''):'<div class="empty">Nenhuma venda registrada neste período. Toque em "Vendi 1" em um perfume ou em "+ Registrar uma venda".</div>';
+  }
+  $('#p-fin').addEventListener('click',function(e){
+    var sf=e.target.closest('[data-sf]'); if(sf){sfilter=sf.dataset.sf;renderFin();return}
+    var sp=e.target.dataset.sp; if(sp){priceModal(find(sp));return}
+    var un=e.target.dataset.undo; if(un){
+      var s=V.filter(function(x){return x.id===un})[0]; if(!s) return;
+      if(confirm('Desfazer a venda de "'+s.productName+'" ('+money(s.total)+')?\n'+(s.decQty?'As '+s.decQty+' unidade(s) voltarão para o estoque.':''))){
+        var p=find(s.productId); if(p&&s.decQty) p.stock+=s.decQty;
+        V=V.filter(function(x){return x.id!==un}); save(); renderAll(); toast('Venda desfeita');
       }
     }
+  });
 
-    function handleLogout() {
-      sessionStorage.removeItem(ADMIN_SESSION_KEY);
-      document.getElementById('dashboard-section').style.display = 'none';
-      document.getElementById('logout-btn').style.display = 'none';
-      document.getElementById('login-section').style.display = 'block';
+  /* ---------- editar tudo (2 fotos) ---------- */
+  function readImg(file,cb){
+    var r=new FileReader(); r.onload=function(){var im=new Image();im.onload=function(){
+      var m=900,s=Math.min(1,m/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=im.width*s;c.height=im.height*s;
+      c.getContext('2d').drawImage(im,0,0,c.width,c.height);cb(c.toDataURL('image/jpeg',.82))};im.src=r.result};r.readAsDataURL(file);
+  }
+  function editModal(p){
+    var isNew=!p, d=p||JC.normalize({id:'',name:'',brand:'',stock:0,preorder:true,active:true}), cat=d.category;
+    var im1=(d.images&&d.images[0])||d.image||'', im2=(d.images&&d.images[1])||'';
+    openModal('<h3>'+(isNew?'Novo perfume':'Editar perfume')+'</h3>'+
+      '<div class="photos">'+
+      '<div class="photo"><img id="ip1" src="'+esc(im1||'assets/img/logo.webp')+'" alt=""><div><div style="font-weight:600;font-size:15px;margin-bottom:4px">Foto 1 (principal)</div><label class="btn g s" style="cursor:pointer;display:inline-block">Escolher<input type="file" id="pf1" accept="image/*" hidden></label></div></div>'+
+      '<div class="photo"><img id="ip2" src="'+esc(im2||'assets/img/logo.webp')+'" alt=""><div><div style="font-weight:600;font-size:15px;margin-bottom:4px">Foto 2 (opcional)</div><label class="btn g s" style="cursor:pointer;display:inline-block">Escolher<input type="file" id="pf2" accept="image/*" hidden></label>'+(im2?' <button type="button" class="linkbtn" id="rm2" style="font-size:14px">Tirar</button>':'')+'</div></div></div>'+
+      '<div class="f"><label>Nome do perfume *</label><input id="f_name" value="'+esc(d.name)+'"></div>'+
+      '<div class="f"><label>Marca</label><input id="f_brand" value="'+esc(d.brand)+'" placeholder="Ex.: Lattafa"></div>'+
+      '<div class="f"><label>Para quem é?</label><div class="seg" id="seg">'+['Feminino','Masculino','Unissex'].map(function(c){return '<button type="button" data-c="'+c+'" class="'+(cat===c?'on':'')+'">'+c+'</button>'}).join('')+'</div></div>'+
+      '<div class="grid2"><div class="f"><label>Preço à vista (R$)</label><input id="f_price" inputmode="decimal" value="'+(d.price!=null?String(d.price).replace('.',','):'')+'" placeholder="Ex.: 250"></div>'+
+      '<div class="f"><label>Preço parcelado (R$)</label><input id="f_inst" inputmode="decimal" value="'+(d.priceInstallment!=null?String(d.priceInstallment).replace('.',','):'')+'" placeholder="Ex.: 275"></div>'+
+      '<div class="f"><label>Custo que você pagou (opcional)</label><input id="f_cost" inputmode="decimal" value="'+(d.cost!=null?String(d.cost).replace('.',','):'')+'" placeholder="Só você vê"></div>'+
+      '<div class="f"><label>Unidades que tenho</label><input id="f_stock" type="number" min="0" inputmode="numeric" value="'+d.stock+'"></div></div>'+
+      '<div class="f"><label>Descrição do perfume (aparece no site)</label><textarea id="f_desc">'+esc(d.desc)+'</textarea></div>'+
+      '<label class="sw" style="margin-bottom:8px"><input type="checkbox" id="f_pre" '+(d.preorder?'checked':'')+'> Aceita encomenda quando acabar</label>'+
+      '<label class="sw" style="margin-bottom:8px"><input type="checkbox" id="f_act" '+(d.active?'checked':'')+'> Aparece no site</label>'+
+      '<label class="sw" style="margin-bottom:10px"><input type="checkbox" id="f_feat" '+(d.featured?'checked':'')+'> Mostrar entre os primeiros (destaque)</label>'+
+      '<details class="more"><summary>Notas do cheiro e tamanho (opcional)</summary>'+
+      '<div class="f"><label>Tamanho</label><input id="f_vol" value="'+esc(d.volume||'100 ml · Eau de Parfum')+'"></div>'+
+      '<div class="f"><label>Cheiro de saída</label><input id="f_top" value="'+esc(d.notes.top)+'"><small>O que se sente nos primeiros minutos.</small></div>'+
+      '<div class="f"><label>Cheiro do coração</label><input id="f_heart" value="'+esc(d.notes.heart)+'"><small>O que aparece depois de um tempo.</small></div>'+
+      '<div class="f"><label>Cheiro de fundo</label><input id="f_base" value="'+esc(d.notes.base)+'"><small>O que fica na pele por horas.</small></div></details>'+
+      '<div class="mfoot"><button class="btn g" data-close="1">Cancelar</button><button class="btn p" data-ok="1">Salvar</button></div>');
+    $('#seg').onclick=function(e){var b=e.target.closest('button');if(!b)return;cat=b.dataset.c;$$('#seg button').forEach(function(x){x.classList.toggle('on',x===b)})};
+    $('#pf1').onchange=function(e){if(e.target.files[0])readImg(e.target.files[0],function(u){im1=u;$('#ip1').src=u})};
+    $('#pf2').onchange=function(e){if(e.target.files[0])readImg(e.target.files[0],function(u){im2=u;$('#ip2').src=u})};
+    if($('#rm2')) $('#rm2').onclick=function(){im2='';$('#ip2').src='assets/img/logo.webp'};
+    onSave=function(){
+      var name=$('#f_name').value.trim(); if(!name){toast('Digite o nome do perfume');return}
+      var o=p;
+      if(isNew){var base=name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')||'perfume',id=base,i=2;while(find(id))id=base+'-'+(i++);o={id:id,image:'',images:[],promo:null};P.push(o)}
+      o.name=name;o.brand=$('#f_brand').value.trim();o.category=cat;o.volume=$('#f_vol').value.trim();
+      var np=num($('#f_price').value);if(o.promo&&np!==o.price)o.promo=null;
+      o.price=np;o.priceInstallment=num($('#f_inst').value);o.cost=num($('#f_cost').value);o.stock=Math.max(0,parseInt($('#f_stock').value,10)||0);
+      o.preorder=$('#f_pre').checked;o.active=$('#f_act').checked;o.featured=$('#f_feat').checked;o.desc=$('#f_desc').value.trim();
+      o.notes={top:$('#f_top').value.trim(),heart:$('#f_heart').value.trim(),base:$('#f_base').value.trim()};
+      o.images=[im1,im2].filter(Boolean); o.image=o.images[0]||'';
+      JC.normalize(o);save();closeModal();renderAll();toast(isNew?'Perfume adicionado':'Alterações salvas');
+    };
+  }
+
+  /* ---------- promoções ---------- */
+  function pctUI(sel,label){
+    return '<div class="f"><label>Quanto de desconto?</label></div><div class="pct" id="pct">'+[5,10,15,20,25,30].map(function(n){return '<button type="button" data-n="'+n+'" class="'+(sel===n?'on':'')+'">'+n+'%</button>'}).join('')+'</div>'+
+      '<div class="f"><label>Ou digite outro valor (%)</label><input id="pcustom" inputmode="decimal" placeholder="Ex.: 12"></div>'+
+      '<div class="f"><label>Nome da oferta (aparece na foto)</label><input id="plabel" value="'+esc(label)+'" placeholder="Ex.: Oferta da Semana"></div>';
+  }
+  function pctValue(){var c=num($('#pcustom').value);if(c!=null&&c<100)return c;var b=$('#pct .on');return b?Number(b.dataset.n):null}
+  function bindPct(update){
+    $('#pct').onclick=function(e){var b=e.target.closest('button');if(!b)return;$$('#pct button').forEach(function(x){x.classList.toggle('on',x===b)});$('#pcustom').value='';update()};
+    $('#pcustom').oninput=function(){$$('#pct button').forEach(function(x){x.classList.remove('on')});update()};
+  }
+  function applyPromo(p,pc,label){
+    if(p.price==null&&p.priceInstallment==null) return false;
+    p.promo={active:true,price:p.price?r2(p.price*(100-pc)/100):null,priceInstallment:p.priceInstallment?r2(p.priceInstallment*(100-pc)/100):null,label:label||'Promoção'};return true;
+  }
+  function promoModal(p){
+    if(p.price==null){
+      openModal('<h3>Promoção: '+esc(p.name)+'</h3><p class="sub" style="margin-bottom:6px">Para fazer promoção, primeiro informe o preço normal deste perfume.</p><div class="mfoot"><button class="btn g" data-close="1">Fechar</button><button class="btn p" id="goPrice">Informar preço agora</button></div>');
+      $('#goPrice').onclick=function(){priceModal(p)};return;
     }
+    var active=p.promo&&p.promo.active;
+    openModal('<h3>Promoção: '+esc(p.name)+'</h3><p class="sub" style="margin-bottom:10px">Preço normal: <b>'+money(p.price)+'</b> à vista'+(p.priceInstallment?' &middot; '+money(p.priceInstallment)+' parcelado':'')+'</p>'+
+      pctUI(10,active?(p.promo.label||''):'Promoção')+'<div class="prev" id="prev"></div>'+
+      '<div class="mfoot">'+(active?'<button class="btn d" id="endP">Encerrar promoção</button>':'')+'<button class="btn g" data-close="1">Cancelar</button><button class="btn p" data-ok="1">'+(active?'Atualizar promoção':'Ativar promoção')+'</button></div>');
+    function upd(){var pc=pctValue();$('#prev').innerHTML=pc==null?'Escolha um desconto.':'Preço na promoção: <b>'+money(r2(p.price*(100-pc)/100))+'</b> à vista'+(p.priceInstallment?' &middot; <b>'+money(r2(p.priceInstallment*(100-pc)/100))+'</b> parcelado':'')}
+    bindPct(upd);upd();
+    if(active){$('#endP').onclick=function(){p.promo=null;save();closeModal();renderAll();toast('Promoção encerrada')}}
+    onSave=function(){var pc=pctValue();if(pc==null){toast('Escolha um desconto');return}applyPromo(p,pc,$('#plabel').value.trim());save();closeModal();renderAll();toast('Promoção ativada: '+pc+'% de desconto')};
+  }
+  function renderPromo(){
+    var l=P.filter(function(p){return JC.pricing(p).onPromo});
+    $('#prlist').innerHTML=l.length?'<h3 style="font-family:var(--serif);color:var(--forest);margin:6px 0 10px">Promoções ativas ('+l.length+')</h3>'+l.map(function(p){
+      var pr=JC.pricing(p);
+      return '<div class="item" data-id="'+p.id+'"><img src="'+esc(p.image)+'" alt=""><div><h3>'+esc(p.name)+'</h3><div class="br">'+esc(pr.label)+'</div><div class="price"><span class="pr-old">'+money(pr.oldCash)+'</span> <b>'+money(pr.cash)+'</b> à vista'+(pr.inst?' &middot; '+money(pr.inst)+' parcelado':'')+'</div>'+
+      '<div class="rowbtns" style="margin:8px 0 0"><button class="btn g s" data-pa="edit" data-id="'+p.id+'">Mudar</button><button class="btn d s" data-pa="end" data-id="'+p.id+'">Encerrar</button></div></div></div>';
+    }).join(''):'<div class="empty">Nenhuma promoção ativa agora.</div>';
+  }
+  $('#prlist').addEventListener('click',function(e){var b=e.target.closest('[data-pa]');if(!b)return;var p=find(b.dataset.id);
+    if(b.dataset.pa==='end'){p.promo=null;save();renderAll();toast('Promoção encerrada')}else promoModal(p)});
+  $('#promoOne').onclick=function(){
+    var l=P.filter(function(p){return p.price!=null});
+    if(!l.length){toast('Nenhum perfume com preço informado');return}
+    openModal('<h3>Qual perfume?</h3><div class="f"><select id="pickp">'+l.map(function(p){return '<option value="'+p.id+'">'+esc(p.name)+' ('+money(p.price)+')</option>'}).join('')+'</select></div><div class="mfoot"><button class="btn g" data-close="1">Cancelar</button><button class="btn p" data-ok="1">Continuar</button></div>');
+    onSave=function(){var p=find($('#pickp').value);promoModal(p)};
+  };
+  $('#promoAll').onclick=function(){
+    var l=P.filter(function(p){return p.price!=null&&p.active});
+    openModal('<h3>Promoção em todos</h3><p class="sub" style="margin-bottom:10px">Vale para os '+l.length+' perfumes que têm preço informado.</p>'+pctUI(10,'Promoção')+'<div class="prev">Perfumes sem preço ficam de fora.</div>'+
+      '<div class="mfoot"><button class="btn g" data-close="1">Cancelar</button><button class="btn p" data-ok="1">Ativar em todos</button></div>');
+    bindPct(function(){});
+    onSave=function(){var pc=pctValue();if(pc==null){toast('Escolha um desconto');return}var lb=$('#plabel').value.trim();l.forEach(function(p){applyPromo(p,pc,lb)});save();closeModal();renderAll();toast('Promoção de '+pc+'% ativada em '+l.length+' perfumes')};
+  };
+  $('#promoEnd').onclick=function(){
+    var n=P.filter(function(p){return JC.pricing(p).onPromo}).length;
+    if(!n){toast('Não há promoções ativas');return}
+    if(confirm('Encerrar as '+n+' promoções ativas?')){P.forEach(function(p){p.promo=null});save();renderAll();toast('Promoções encerradas')}
+  };
 
-    function showDashboard() {
-      document.getElementById('login-section').style.display = 'none';
-      document.getElementById('dashboard-section').style.display = 'block';
-      document.getElementById('logout-btn').style.display = 'inline-flex';
-      renderAdminTable();
-    }
+  /* ---------- ajustes ---------- */
+  function loadCfg(){
+    $('#c_wa').value=S.whatsapp;$('#c_ig').value=S.instagram;$('#c_mi').value=S.maxInstallments;$('#c_bn').value=S.banner;$('#c_dn').value=S.deliveryNote;
+    $('#c_pix').checked=S.payPix;$('#c_cash').checked=S.payCash;$('#c_deb').checked=S.payDebit;$('#c_cre').checked=S.payCredit;
+  }
+  $('#saveCfg').onclick=function(){
+    var pw=$('#c_pw').value; if(pw&&pw.length<6){toast('A senha precisa ter pelo menos 6 caracteres');return}
+    S.whatsapp=$('#c_wa').value.replace(/\D/g,'')||S.whatsapp;S.instagram=$('#c_ig').value.replace('@','').trim();
+    S.maxInstallments=Math.min(12,Math.max(1,parseInt($('#c_mi').value,10)||1));S.banner=$('#c_bn').value.trim();S.deliveryNote=$('#c_dn').value.trim();
+    S.payPix=$('#c_pix').checked;S.payCash=$('#c_cash').checked;S.payDebit=$('#c_deb').checked;S.payCredit=$('#c_cre').checked;
+    if(!(S.payPix||S.payCash||S.payDebit||S.payCredit)){S.payPix=true;$('#c_pix').checked=true}
+    JC.saveSettings(S); if(pw){JC.store.set('jc_admin_pass',pw);$('#c_pw').value=''}
+    toast('Ajustes salvos');
+  };
+  $('#exp').onclick=function(){
+    var b=new Blob([JSON.stringify({catalog:P,settings:S,sales:V},null,1)],{type:'application/json'}),a=document.createElement('a');
+    a.href=URL.createObjectURL(b);a.download='jc-parfum-copia-'+new Date().toISOString().slice(0,10)+'.json';a.click();toast('Cópia baixada');
+  };
+  $('#imp').addEventListener('change',function(e){
+    var f=e.target.files[0]; if(!f)return; var r=new FileReader();
+    r.onload=function(){try{var o=JSON.parse(r.result);if(!o.catalog)throw 0;P=o.catalog.map(JC.normalize);if(o.settings)S=Object.assign(JC.loadSettings(),o.settings);if(Array.isArray(o.sales))V=o.sales;save();JC.saveSettings(S);renderAll();toast('Cópia restaurada')}catch(x){toast('Esse arquivo não é uma cópia válida')}};
+    r.readAsText(f);
+  });
+  $('#reset').onclick=function(){if(confirm('Descartar TODAS as mudanças e voltar ao catálogo original?')){JC.store.del(JC.KEY);JC.store.del(JC.KEY_SET);JC.store.del(JC.KEY_SALES);P=JC.loadCatalog();S=JC.loadSettings();V=[];renderAll();toast('Catálogo original restaurado')}};
 
-    function getStatusBadge(qty) {
-      if (qty <= 0) return '<span class="status-pill out">Esgotado</span>';
-      if (qty === 1) return '<span class="status-pill low">Última unidade</span>';
-      return '<span class="status-pill in">Em Estoque</span>';
-    }
-
-    function renderAdminTable() {
-      const allProducts = getProducts();
-      const search = (document.getElementById('admin-search')?.value || '').trim().toLowerCase();
-      const products = search
-        ? allProducts.filter((p) => `${p.name} ${p.brand} ${p.category}`.toLowerCase().includes(search))
-        : allProducts;
-
-      const totalUnits = allProducts.reduce((sum, p) => sum + (Number(p.stockQty) || 0), 0);
-      const outStockCount = allProducts.filter((p) => (Number(p.stockQty) || 0) <= 0).length;
-      const avgPrice = allProducts.length
-        ? allProducts.reduce((sum, p) => sum + Number(p.price || 0), 0) / allProducts.length
-        : 0;
-
-      document.getElementById('stat-total').textContent = allProducts.length;
-      document.getElementById('stat-units').textContent = totalUnits;
-      document.getElementById('stat-outstock').textContent = outStockCount;
-      document.getElementById('stat-avg').textContent = formatBRL(avgPrice);
-
-      const tbody = document.getElementById('admin-products-tbody');
-      if (products.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding: 2rem; color: var(--text-muted);">Nenhum perfume encontrado com esse filtro.</td></tr>';
-        return;
-      }
-
-      tbody.innerHTML = products
-        .map(
-          (p) => `
-          <tr>
-            <td>
-              <div style="display: flex; align-items: center; gap: 0.75rem;">
-                <img src="${p.image}" alt="${p.name}" style="width: 46px; height: 46px; object-fit: contain; background: #fff; border-radius: 6px; padding: 3px;" onerror="this.src='assets/img/logo.jpg'" />
-                <div>
-                  <strong style="display: block; color: var(--text-primary); font-size: 0.92rem;">${p.name}</strong>
-                  <span style="font-size: 0.76rem; color: var(--gold-primary);">${p.brand}</span>
-                </div>
-              </div>
-            </td>
-            <td>
-              <span style="font-size: 0.82rem; color: var(--text-secondary);">${p.category}</span>
-            </td>
-            <td>
-              <div style="display: flex; flex-direction: column; gap: 2px;">
-                <input
-                  type="number"
-                  step="1"
-                  min="1"
-                  class="price-inline-input"
-                  value="${Number(p.price).toFixed(2)}"
-                  onchange="updateInlinePrice('${p.id}', this.value)"
-                  aria-label="Preço de ${p.name}"
-                />
-                ${p.oldPrice ? `<span style="font-size: 0.7rem; color: var(--text-muted);">De: ${formatBRL(p.oldPrice)}</span>` : ''}
-              </div>
-            </td>
-            <td>
-              <div class="stock-stepper">
-                <button type="button" onclick="adjustStockQty('${p.id}', -1)" title="Diminuir 1 unidade">−</button>
-                <span>${p.stockQty} un.</span>
-                <button type="button" onclick="adjustStockQty('${p.id}', 1)" title="Adicionar 1 unidade">+</button>
-              </div>
-            </td>
-            <td>
-              ${getStatusBadge(p.stockQty)}
-            </td>
-            <td>
-              <div style="display: flex; gap: 0.45rem;">
-                <button type="button" class="btn-subtle" style="padding: 0.4rem 0.75rem; font-size: 0.78rem;" onclick="openProductFormModal('${p.id}')">
-                  Editar
-                </button>
-                <button type="button" onclick="deleteProduct('${p.id}')" style="background: rgba(217,70,70,0.14); border: 1px solid rgba(217,70,70,0.35); color: #f08585; padding: 0.4rem 0.75rem; border-radius: 6px; font-size: 0.78rem; font-weight: 600; cursor: pointer;">
-                  Excluir
-                </button>
-              </div>
-            </td>
-          </tr>
-        `
-        )
-        .join('');
-    }
-
-    function updateInlinePrice(productId, newValue) {
-      const parsed = parseFloat(newValue);
-      if (isNaN(parsed) || parsed <= 0) return;
-      const list = getProducts().map((p) =>
-        p.id === productId ? { ...p, price: parsed } : p
-      );
-      saveProducts(list);
-      renderAdminTable();
-      showToast('Preço atualizado na vitrine!');
-    }
-
-    function adjustStockQty(productId, delta) {
-      const list = getProducts().map((p) => {
-        if (p.id !== productId) return p;
-        const nextQty = Math.max(0, (Number(p.stockQty) || 0) + delta);
-        return { ...p, stockQty: nextQty, inStock: nextQty > 0 };
-      });
-      saveProducts(list);
-      renderAdminTable();
-      showToast('Quantidade em estoque atualizada!');
-    }
-
-    function openProductFormModal(productId) {
-      const modal = document.getElementById('admin-form-modal');
-      const form = document.getElementById('product-form');
-      form.reset();
-
-      if (productId) {
-        const prod = getProducts().find((p) => p.id === productId);
-        if (!prod) return;
-        document.getElementById('form-panel-title').textContent = 'Editar Perfume';
-        document.getElementById('prod-id').value = prod.id;
-        document.getElementById('prod-name').value = prod.name;
-        document.getElementById('prod-brand').value = prod.brand;
-        document.getElementById('prod-category').value = prod.category;
-        document.getElementById('prod-qty').value = prod.stockQty;
-        document.getElementById('prod-price').value = prod.price;
-        document.getElementById('prod-old-price').value = prod.oldPrice || '';
-        document.getElementById('prod-badge').value = prod.badge || '';
-        document.getElementById('prod-volume').value = prod.volume || '100ml · Eau de Parfum';
-        document.getElementById('prod-image').value = prod.image || '';
-        updateImagePreview(prod.image || 'assets/img/logo.jpg');
-        document.getElementById('prod-desc').value = prod.shortDesc || prod.description || '';
-        document.getElementById('prod-notes-top').value = prod.notes?.top || '';
-        document.getElementById('prod-notes-heart').value = prod.notes?.heart || '';
-        document.getElementById('prod-notes-base').value = prod.notes?.base || '';
-      } else {
-        document.getElementById('form-panel-title').textContent = 'Cadastrar Novo Perfume';
-        document.getElementById('prod-id').value = '';
-        document.getElementById('prod-qty').value = 5;
-        document.getElementById('prod-volume').value = '100ml · Eau de Parfum';
-        updateImagePreview('assets/img/logo.jpg');
-      }
-
-      modal.classList.add('open');
-    }
-
-    function closeProductFormModal() {
-      document.getElementById('admin-form-modal').classList.remove('open');
-    }
-
-    function updateImagePreview(src) {
-      const img = document.getElementById('prod-image-preview');
-      img.src = src && src.trim() ? src.trim() : 'assets/img/logo.jpg';
-    }
-
-    function handleLocalImageUpload(event) {
-      const file = event.target.files?.[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = function (ev) {
-        const imageObj = new Image();
-        imageObj.onload = function () {
-          const canvas = document.createElement('canvas');
-          const maxDim = 600;
-          let w = imageObj.width;
-          let h = imageObj.height;
-          if (w > maxDim || h > maxDim) {
-            if (w > h) {
-              h = Math.round((h * maxDim) / w);
-              w = maxDim;
-            } else {
-              w = Math.round((w * maxDim) / h);
-              h = maxDim;
-            }
-          }
-          canvas.width = w;
-          canvas.height = h;
-          const ctx = canvas.getContext('2d');
-          ctx.fillStyle = '#ffffff';
-          ctx.fillRect(0, 0, w, h);
-          ctx.drawImage(imageObj, 0, 0, w, h);
-          const dataUrl = canvas.toDataURL('image/jpeg', 0.82);
-          document.getElementById('prod-image').value = dataUrl;
-          updateImagePreview(dataUrl);
-          showToast('Foto carregada!');
-        };
-        imageObj.src = ev.target.result;
-      };
-      reader.readAsDataURL(file);
-    }
-
-    function handleSaveProduct(e) {
-      e.preventDefault();
-      const idField = document.getElementById('prod-id').value.trim();
-      const name = document.getElementById('prod-name').value.trim();
-      const brand = document.getElementById('prod-brand').value.trim();
-      const category = document.getElementById('prod-category').value;
-      const stockQty = Math.max(0, parseInt(document.getElementById('prod-qty').value, 10) || 0);
-      const price = parseFloat(document.getElementById('prod-price').value) || 0;
-      const oldPriceRaw = parseFloat(document.getElementById('prod-old-price').value);
-      const oldPrice = !isNaN(oldPriceRaw) && oldPriceRaw > price ? oldPriceRaw : null;
-      const badge = document.getElementById('prod-badge').value.trim() || 'Original';
-      const volume = document.getElementById('prod-volume').value.trim() || '100ml · Eau de Parfum';
-      const image = document.getElementById('prod-image').value.trim() || 'assets/img/logo.jpg';
-      const desc = document.getElementById('prod-desc').value.trim();
-      const top = document.getElementById('prod-notes-top').value.trim() || 'Notas cítricas e especiarias';
-      const heart = document.getElementById('prod-notes-heart').value.trim() || 'Madeiras nobres e acordes florais';
-      const base = document.getElementById('prod-notes-base').value.trim() || 'Âmbar, oud e almíscar';
-
-      let list = getProducts();
-
-      if (idField) {
-        list = list.map((p) =>
-          p.id === idField
-            ? {
-                ...p,
-                name,
-                brand,
-                category,
-                stockQty,
-                inStock: stockQty > 0,
-                price,
-                oldPrice,
-                badge,
-                volume,
-                image,
-                shortDesc: desc,
-                description: desc,
-                notes: { top, heart, base }
-              }
-            : p
-        );
-        showToast('Perfume atualizado com sucesso!');
-      } else {
-        const slug =
-          name
-            .toLowerCase()
-            .normalize('NFD')
-            .replace(/[\u0300-\u036f]/g, '')
-            .replace(/[^a-z0-9]+/g, '-') +
-          '-' +
-          Date.now().toString().slice(-4);
-
-        list.unshift({
-          id: slug,
-          name,
-          brand,
-          origin: 'Dubai · EAU',
-          category,
-          volume,
-          price,
-          oldPrice,
-          stockQty,
-          inStock: stockQty > 0,
-          featured: true,
-          badge,
-          image,
-          shortDesc: desc,
-          description: desc,
-          notes: { top, heart, base },
-          accords: [category, brand, 'Alta Fixação'],
-          longevity: '8h – 12h',
-          projection: 'Alta'
-        });
-        showToast('Novo perfume adicionado à vitrine!');
-      }
-
-      saveProducts(list);
-      closeProductFormModal();
-      renderAdminTable();
-    }
-
-    function deleteProduct(productId) {
-      const prod = getProducts().find((p) => p.id === productId);
-      if (!prod) return;
-      if (!confirm(`Deseja realmente excluir "${prod.name}" do catálogo?`)) return;
-      const list = getProducts().filter((p) => p.id !== productId);
-      saveProducts(list);
-      renderAdminTable();
-      showToast('Perfume removido.');
-    }
-
-    function handleResetDefault() {
-      if (!confirm('Restaurar os 7 perfumes iniciais e preços padrão?')) return;
-      resetCatalogToDefault();
-      renderAdminTable();
-      showToast('Catálogo inicial restaurado!');
-    }
-
-    function copyStoreLink() {
-      const url = window.location.origin + window.location.pathname.replace(/admin\.html$/, '');
-      if (navigator.clipboard) {
-        navigator.clipboard.writeText(url).then(() => {
-          showToast('Link da loja copiado!');
-        });
-      } else {
-        prompt('Copie o link da loja:', url);
-      }
-    }
-
-    function exportBackup() {
-      const data = JSON.stringify(getProducts(), null, 2);
-      const blob = new Blob([data], { type: 'application/json' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'jc-parfum-catalogo-backup.json';
-      a.click();
-      URL.revokeObjectURL(url);
-      showToast('Backup baixado!');
-    }
-
-    function importBackup(event) {
-      const file = event.target.files?.[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = function (ev) {
-        try {
-          const parsed = JSON.parse(ev.target.result);
-          if (Array.isArray(parsed) && parsed.length > 0) {
-            saveProducts(parsed);
-            renderAdminTable();
-            showToast('Backup restaurado com sucesso!');
-          } else {
-            alert('Arquivo de backup inválido.');
-          }
-        } catch (err) {
-          alert('Erro ao ler o arquivo de backup.');
-        }
-      };
-      reader.readAsText(file);
-    }
-
-    function showToast(msg) {
-      const bar = document.getElementById('toast-bar');
-      bar.textContent = msg;
-      bar.style.display = 'block';
-      clearTimeout(window._toastTimer);
-      window._toastTimer = setTimeout(() => {
-        bar.style.display = 'none';
-      }, 2600);
-    }
-  </script>
+  function renderAll(){renderKpis();renderProd();renderFin();renderPromo();loadCfg()}
+})();
+</script>
 </body>
 </html>

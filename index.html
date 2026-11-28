@@ -1,309 +1,456 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>JC PARFUM | Alta Perfumaria Árabe &amp; Importados — Macapá/AP</title>
-  <meta name="description" content="JC PARFUM (JC Perfumes Árabes) em Macapá - AP. Alta perfumaria árabe e importados franceses 100% originais: Lattafa, Al Wataniah, Maison Alhambra, Jacques Bogart e Mega Collection." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/css/style.css" />
-  <link rel="icon" type="image/jpeg" href="assets/img/logo.jpg" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JC PARFUM | Perfumaria árabe em Macapá</title>
+<meta name="description" content="Perfumes árabes e importados em Macapá-AP. Escolha online e finalize pelo WhatsApp.">
+<link rel="icon" href="assets/img/logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --linen:#f5f0e6; --cream:#fffaf1; --sand:#e8dfcd; --ink:#26241f; --muted:#6b665a;
+  --forest:#2f3b2c; --forest2:#44553f; --gold:#b48a3c; --gold2:#d4ad5a; --clay:#a8553a;
+  --ok:#3f6b3a; --warn:#a8741a; --line:#e2d8c3;
+  --serif:'Cormorant Garamond',Georgia,serif; --sans:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  --bagw:400px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);font-size:16px;line-height:1.55;color:var(--ink);background:var(--linen);
+  background-image:radial-gradient(circle at 12% 8%,rgba(180,138,60,.10),transparent 38%),radial-gradient(circle at 92% 30%,rgba(68,85,63,.10),transparent 40%);
+  transition:padding-right .25s ease}
+img{max-width:100%;display:block}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+
+.banner{background:var(--forest);color:#f3ead6;text-align:center;padding:9px 16px;font-size:14px;letter-spacing:.02em}
+.banner:empty{display:none}
+
+/* topo */
+header.top{padding:22px 0 0;text-align:center;position:relative}
+.top .logo{width:92px;height:92px;border-radius:50%;margin:0 auto;border:2px solid var(--gold);box-shadow:0 8px 28px rgba(38,36,31,.22);overflow:hidden;background:#111}
+.top .logo img{width:100%;height:100%;object-fit:cover}
+.top .brandname{font-family:var(--serif);font-size:26px;letter-spacing:.32em;font-weight:600;margin-top:10px;color:var(--forest)}
+.top .tag{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--muted)}
+.bagbtn{position:absolute;right:24px;top:34px;display:flex;align-items:center;gap:8px;padding:11px 18px;border-radius:999px;background:var(--forest);color:#f6eedc;font-weight:500;font-size:15px;box-shadow:0 6px 18px rgba(47,59,44,.3)}
+.bagbtn svg{width:20px;height:20px}
+.bagbtn .count{min-width:24px;height:24px;border-radius:50%;background:var(--gold2);color:var(--ink);font-size:13px;font-weight:600;display:grid;place-items:center}
+nav.menu{display:flex;justify-content:center;gap:34px;padding:20px 0 6px;font-size:14px;letter-spacing:.14em;text-transform:uppercase}
+nav.menu a{text-decoration:none;color:var(--muted);padding-bottom:4px;border-bottom:1px solid transparent}
+nav.menu a:hover{color:var(--forest);border-color:var(--gold)}
+
+/* hero orgânico */
+.hero{position:relative;margin:26px auto 0;max-width:1180px;padding:0 24px}
+.hero-card{position:relative;overflow:hidden;border-radius:44px 120px 44px 120px;background:linear-gradient(135deg,var(--forest) 0%,#3c4c37 60%,#4d5f45 100%);color:#f6eedc;padding:68px 56px;min-height:300px}
+.hero-card::before,.hero-card::after{content:"";position:absolute;border-radius:50%;filter:blur(2px)}
+.hero-card::before{width:360px;height:360px;right:-90px;top:-110px;background:radial-gradient(circle,rgba(212,173,90,.45),transparent 68%)}
+.hero-card::after{width:300px;height:300px;left:30%;bottom:-170px;background:radial-gradient(circle,rgba(245,240,230,.16),transparent 68%)}
+.hero-card .eyebrow{font-size:13px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold2)}
+.hero-card h1{font-family:var(--serif);font-weight:600;font-size:clamp(38px,5.4vw,66px);line-height:1.04;margin:14px 0 16px;max-width:680px}
+.hero-card p{max-width:520px;font-size:18px;color:#e6dcc4}
+.hero-cats{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px;position:relative;z-index:1}
+.hero-cats button,.hero-card .cta{display:inline-flex;padding:13px 24px;border-radius:999px;font-weight:600;text-decoration:none;font-size:15px}
+.hero-card .cta{background:var(--gold2);color:var(--ink)}
+.hero-card .cta:hover{background:#e3bd70}
+.hero-cats button{border:1px solid rgba(246,238,220,.38);color:#f6eedc;background:rgba(255,255,255,.06)}
+.hero-cats button:hover{background:rgba(255,255,255,.16)}
+.perks{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:22px 0 0}
+.perk{background:var(--cream);border:1px solid var(--line);border-radius:22px;padding:16px 20px;font-size:15px}
+.perk b{display:block;font-family:var(--serif);font-size:20px;color:var(--forest)}
+
+/* catálogo */
+section.cat{padding:58px 0 20px}
+.sec-head{text-align:center;margin-bottom:26px}
+.sec-head h2{font-family:var(--serif);font-size:clamp(32px,4vw,46px);font-weight:600;color:var(--forest)}
+.sec-head p{color:var(--muted)}
+.tools{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;margin-bottom:26px}
+.tabs{display:flex;flex-wrap:wrap;gap:8px}
+.tab{padding:10px 20px;border-radius:999px;border:1px solid var(--line);background:var(--cream);font-size:15px;font-weight:500;color:var(--muted)}
+.tab:hover{border-color:var(--gold)}
+.tab.on{background:var(--forest);border-color:var(--forest);color:#f6eedc}
+.tab.promo.on{background:var(--clay);border-color:var(--clay)}
+.tools .right{display:flex;gap:10px;flex-wrap:wrap}
+.tools input,.tools select{padding:11px 16px;border-radius:999px;border:1px solid var(--line);background:var(--cream);font:inherit;font-size:15px;color:var(--ink)}
+.tools input{width:230px}
+.tools input:focus,.tools select:focus{outline:2px solid var(--gold2);outline-offset:1px}
+
+.list{display:flex;flex-direction:column;gap:22px}
+.card{display:grid;grid-template-columns:270px 1fr;background:var(--cream);border:1px solid var(--line);border-radius:34px;overflow:hidden;box-shadow:0 10px 30px rgba(60,50,30,.07);transition:transform .25s,box-shadow .25s}
+.card:hover{transform:translateY(-3px);box-shadow:0 18px 40px rgba(60,50,30,.13)}
+.pic{position:relative;padding:22px 22px 16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:radial-gradient(circle at 50% 40%,#fff,var(--sand))}
+.pic .arch{width:100%;aspect-ratio:4/5;border-radius:999px 999px 26px 26px;overflow:hidden;background:#fff;box-shadow:inset 0 0 0 1px var(--line),0 8px 22px rgba(60,50,30,.12)}
+.pic .arch img{width:100%;height:100%;object-fit:cover;transition:opacity .2s}
+.thumbs{display:flex;gap:8px;justify-content:center}
+.th{width:46px;height:56px;border-radius:10px;overflow:hidden;border:2px solid var(--line);background:#fff;padding:0;opacity:.7;transition:opacity .15s,border-color .15s}
+.th.on,.th:hover{opacity:1;border-color:var(--forest)}
+.th img{width:100%;height:100%;object-fit:cover}
+.flag{position:absolute;top:18px;left:18px;padding:6px 13px;border-radius:999px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;background:var(--clay);color:#fff;z-index:2}
+.body{padding:28px 32px 26px;display:flex;flex-direction:column;gap:14px}
+.meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.meta .dot{width:4px;height:4px;border-radius:50%;background:var(--gold)}
+.body h3{font-family:var(--serif);font-size:36px;line-height:1.05;font-weight:600;color:var(--forest)}
+.body .desc{color:var(--muted);font-size:16px;max-width:650px}
+.pyr{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.pyr div{padding:14px 16px;border-left:1px solid var(--line)}
+.pyr div:first-child{border-left:0;padding-left:0}
+.pyr b{display:block;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:4px;font-weight:600}
+.pyr span{font-size:15px;line-height:1.4;display:block}
+.buy{display:flex;flex-wrap:wrap;gap:18px;align-items:flex-end;justify-content:space-between}
+.price .old{font-size:14px;color:var(--muted);text-decoration:line-through}
+.price .main{font-family:var(--serif);font-size:34px;font-weight:700;line-height:1;color:var(--ink)}
+.price .main small{font-family:var(--sans);font-size:13px;font-weight:500;color:var(--muted);letter-spacing:.04em}
+.price .sub{font-size:15px;color:var(--muted);margin-top:4px}
+.price .consult{font-family:var(--serif);font-size:26px;font-weight:600;color:var(--muted)}
+.stock{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:500;margin-top:8px}
+.stock i{width:9px;height:9px;border-radius:50%;background:var(--ok)}
+.stock.low{color:var(--warn)} .stock.low i{background:var(--warn)}
+.stock.pre{color:var(--forest2)} .stock.pre i{background:var(--gold)}
+.stock.out{color:var(--muted)} .stock.out i{background:#aaa}
+.act{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.btn{padding:14px 24px;border-radius:999px;font-weight:600;font-size:15px;transition:background .2s,transform .1s;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+.btn:active{transform:scale(.98)}
+.btn.main{background:var(--forest);color:#f6eedc}
+.btn.main:hover{background:var(--forest2)}
+.btn.alt{background:transparent;border:1.5px solid var(--gold);color:var(--forest)}
+.btn.alt:hover{background:var(--gold2)}
+.btn.wap{background:#e7f3ea;color:#1e6233;border:1px solid #bcdbc3;padding:13px 18px;font-size:14px}
+.btn.wap:hover{background:#d4ebd9}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.empty{text-align:center;padding:50px;color:var(--muted);font-size:18px}
+
+/* bloco de canais antes do rodapé */
+.channels{margin:54px 0 0;display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.ch{background:var(--cream);border:1px solid var(--line);border-radius:28px;padding:24px 28px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.ch b{display:block;font-family:var(--serif);font-size:26px;color:var(--forest)}
+.ch span{color:var(--muted);font-size:15px}
+
+/* sacola lateral */
+aside.bag{position:fixed;top:14px;right:14px;bottom:14px;width:var(--bagw);max-width:calc(100vw - 28px);background:var(--cream);border:1px solid var(--line);border-radius:30px;box-shadow:0 20px 60px rgba(40,34,20,.28);display:flex;flex-direction:column;transform:translateX(calc(100% + 30px));transition:transform .3s ease;z-index:50}
+body.bag-open aside.bag{transform:none}
+.bag header{display:flex;align-items:center;justify-content:space-between;padding:20px 24px 14px;border-bottom:1px solid var(--line)}
+.bag header h4{font-family:var(--serif);font-size:28px;color:var(--forest);font-weight:600}
+.iconbtn{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--sand)}
+.iconbtn:hover{background:var(--gold2)}
+.bag .items{flex:1;overflow:auto;padding:8px 24px;min-height:150px}
+.it{display:grid;grid-template-columns:62px 1fr;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}
+.it img{width:62px;height:78px;object-fit:cover;border-radius:14px;background:#fff;border:1px solid var(--line)}
+.it .n{font-family:var(--serif);font-size:20px;font-weight:600;line-height:1.1}
+.it .b{font-size:13px;color:var(--muted)}
+.it .tg{display:inline-block;margin-top:3px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--forest2);background:var(--sand);padding:2px 9px;border-radius:999px}
+.it .row{display:flex;justify-content:space-between;align-items:center;margin-top:8px}
+.qty{display:flex;align-items:center;border:1px solid var(--line);border-radius:999px}
+.qty button{width:32px;height:32px;font-size:18px}
+.qty span{min-width:26px;text-align:center;font-weight:600}
+.it .pr{font-weight:600;font-size:15px}
+.it .rm{font-size:12px;color:var(--clay);text-decoration:underline;margin-top:4px}
+.bag .foot{max-height:62%;overflow:auto;padding:12px 22px 18px;border-top:1px solid var(--line);background:#fbf4e6;border-radius:0 0 30px 30px}
+.field{margin-bottom:8px}.two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.field label{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.field select,.field input{width:100%;padding:9px 12px;border-radius:14px;border:1px solid var(--line);background:#fff;font:inherit;font-size:15px}
+.pay{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.pay button{padding:8px 6px;border-radius:14px;border:1px solid var(--line);background:#fff;font-size:14px;font-weight:500}
+.pay button.on{background:var(--forest);color:#f6eedc;border-color:var(--forest)}
+.tot{display:flex;justify-content:space-between;align-items:baseline;margin:6px 0 2px}
+.tot span{color:var(--muted);font-size:14px}
+.tot strong{font-family:var(--serif);font-size:30px;color:var(--ink)}
+.note{font-size:12.5px;line-height:1.4;color:var(--muted);margin-bottom:10px}
+.wa{width:100%;display:flex;justify-content:center;align-items:center;gap:10px;padding:15px;border-radius:999px;background:#25783f;color:#fff;font-weight:600;font-size:16px;text-decoration:none}
+.wa:hover{background:#1f6635}
+.wa svg{width:20px;height:20px}
+.bagempty{text-align:center;padding:50px 10px;color:var(--muted)}
+
+/* rodapé */
+footer{margin-top:40px;background:var(--forest);color:#e6dcc4;padding:48px 0 28px;border-radius:60px 60px 0 0}
+.fgrid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:34px}
+footer h5{font-family:var(--serif);font-size:24px;color:var(--gold2);margin-bottom:8px;font-weight:600}
+footer a{text-decoration:none}
+footer a:hover{color:var(--gold2)}
+footer p,footer li{font-size:15px;list-style:none;margin-bottom:4px}
+.fine{margin-top:34px;padding-top:18px;border-top:1px solid rgba(255,255,255,.14);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:13px;color:#b9b093}
+.fine a{opacity:.6}
+.fine a:hover{opacity:1}
+
+@media (min-width:1280px){ body.bag-open{padding-right:calc(var(--bagw) + 28px)} body.bag-open .bagbtn{right:calc(var(--bagw) + 52px)} }
+@media (max-width:860px){
+  .card{grid-template-columns:1fr}
+  .pic{padding:22px 40px 10px}
+  .pic .arch{max-width:250px;margin:0 auto}
+  .perks,.fgrid,.channels{grid-template-columns:1fr}
+  .hero-card{padding:44px 28px;border-radius:34px 80px 34px 80px}
+  .bagbtn{position:static;margin:14px auto 0}
+  nav.menu{gap:18px;flex-wrap:wrap}
+  .body{padding:22px 22px}
+  .pyr{grid-template-columns:1fr}
+  .pyr div{border-left:0;border-top:1px solid var(--line);padding:10px 0}
+  .pyr div:first-child{border-top:0}
+  .tools input{width:100%}
+  .tools .right{width:100%}
+  .tools .right select{flex:1}
+  aside.bag{top:auto;left:10px;right:10px;bottom:10px;width:auto;max-width:none;max-height:80vh;transform:translateY(calc(100% + 30px))}
+}
+</style>
 </head>
 <body>
+<div class="banner" id="banner"></div>
 
-  <!-- Barra Superior Editorial -->
-  <div class="top-bar">
-    <span>Perfumes 100% Originais Lacrados</span>
-    <span class="sep">·</span>
-    <span>Pronta Entrega em Macapá &amp; Santana - AP</span>
-    <span class="sep">·</span>
-    <span>Atendimento WhatsApp: (96) 8119-7608</span>
+<header class="top">
+  <div class="wrap">
+    <div class="logo"><img src="assets/img/logo.webp" alt="JC PARFUM"></div>
+    <div class="brandname">JC PARFUM</div>
+    <div class="tag">Perfumaria árabe · Macapá, Amapá</div>
+    <button class="bagbtn" id="openBag" aria-label="Abrir sacola">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+      Sacola <span class="count" id="count">0</span>
+    </button>
+    <nav class="menu">
+      <a href="#catalogo">Coleção</a><a href="#como">Como comprar</a><a href="#contato">Contato</a>
+    </nav>
   </div>
+</header>
 
-  <!-- Cabeçalho Boutique Limpo (Sem Painel Admin no Topo) -->
-  <header class="site-header">
-    <div class="header-inner">
-      <a href="#topo" class="brand-identity" id="header-brand-link">
-        <div class="brand-logo-wrap">
-          <img src="assets/img/logo.jpg" alt="Logo JC PARFUM Imported Premium" />
-        </div>
-        <div class="brand-titles">
-          <span class="brand-name">JC PARFUM</span>
-          <span class="brand-sub">Imported · Premium</span>
-        </div>
-      </a>
-
-      <div class="header-actions">
-        <a
-          href="https://www.instagram.com/jc.perfumesarabe"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="header-ig-clean"
-          style="display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; background: transparent; border: none;"
-          aria-label="Instagram @jc.perfumesarabe"
-          title="Instagram @jc.perfumesarabe"
-        >
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <defs>
-              <linearGradient id="ig-grad" x1="0%" y1="100%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#f09433"/>
-                <stop offset="25%" stop-color="#e6683c"/>
-                <stop offset="50%" stop-color="#dc2743"/>
-                <stop offset="75%" stop-color="#cc2366"/>
-                <stop offset="100%" stop-color="#bc1888"/>
-              </linearGradient>
-            </defs>
-            <rect x="2" y="2" width="20" height="20" rx="5.5" stroke="url(#ig-grad)" stroke-width="2"/>
-            <circle cx="12" cy="12" r="4.2" stroke="url(#ig-grad)" stroke-width="2"/>
-            <circle cx="17.5" cy="6.5" r="1.2" fill="url(#ig-grad)"/>
-          </svg>
-        </a>
-
-        <a
-          href="https://wa.me/559681197608?text=Ol%C3%A1!%20Vim%20pelo%20cat%C3%A1logo%20online%20da%20JC%20PARFUM%20e%20gostaria%20de%20atendimento."
-          target="_blank"
-          rel="noopener noreferrer"
-          class="header-wa-pill"
-          id="header-whatsapp-btn"
-          aria-label="Atendimento no WhatsApp"
-          title="Falar no WhatsApp"
-        >
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="#25D366" aria-hidden="true">
-            <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2zm5.8 14.1c-.25.7-1.44 1.34-1.99 1.42-.51.08-1.15.11-1.85-.11-.43-.14-.98-.32-1.69-.63-2.97-1.28-4.91-4.27-5.06-4.47-.15-.2-1.21-1.61-1.21-3.07 0-1.46.77-2.18 1.04-2.48.27-.3.59-.37.79-.37.2 0 .4 0 .57.01.18.01.43-.07.67.51.25.59.84 2.05.91 2.2.07.15.12.32.02.52-.1.2-.15.32-.3.5-.15.17-.31.39-.45.52-.15.15-.3.31-.13.61.17.3.77 1.27 1.65 2.06 1.14 1.01 2.09 1.33 2.39 1.48.3.15.47.12.65-.08.17-.2.74-.86.94-1.16.2-.3.4-.25.67-.15.27.1 1.74.82 2.04.97.3.15.5.22.57.35.08.12.08.72-.17 1.42z"/>
-          </svg>
-          <span>WhatsApp</span>
-        </a>
-
-        <button
-          type="button"
-          class="header-bag-clean"
-          id="open-bag-btn"
-          onclick="toggleBagDrawer()"
-          style="position: relative; display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: transparent; border: none; color: #f7f4ed; cursor: pointer;"
-          aria-label="Abrir sacola"
-          title="Abrir Sacola"
-        >
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-            <line x1="3" y1="6" x2="21" y2="6"></line>
-            <path d="M16 10a4 4 0 0 1-8 0"></path>
-          </svg>
-          <span class="bag-badge" id="bag-count">0</span>
-        </button>
-      </div>
-    </div>
-  </header>
-
-  <!-- Hero Section — Maison Editorial Centralizado -->
-  <main id="topo">
-    <section class="hero-editorial">
-      <div class="hero-crest-showcase">
-        <div class="crest-frame">
-          <img src="assets/img/logo.jpg" alt="Brasão Oficial JC PARFUM Imported Premium" />
-        </div>
-        <div class="crest-divider">
-          <span></span>
-          <small>ALTA PERFUMARIA · MACAPÁ - AP</small>
-          <span></span>
-        </div>
-      </div>
-
-      <div class="hero-editorial-content">
-        <h1 class="hero-title">
-          A Opulência da <em>Alta Perfumaria Árabe</em> &amp; Clássicos Importados
-        </h1>
-        <p class="hero-lead">
-          Fragrâncias originais importadas de Dubai e Paris com fixação extraordinária, frascos lacrados de fábrica e pirâmide olfativa completa direto na vitrine.
-        </p>
-
-        <div class="hero-cta-group">
-          <a href="#catalogo" class="btn-gold" id="hero-explore-btn">
-            Explorar Catálogo
-          </a>
-          <a
-            href="https://wa.me/559681197608?text=Ol%C3%A1!%20Gostaria%20de%20uma%20consultoria%20olfativa%20para%20escolher%20um%20perfume%20na%20JC%20PARFUM."
-            target="_blank"
-            rel="noopener noreferrer"
-            class="btn-outline-gold"
-            id="hero-consultant-btn"
-          >
-            Consultoria no WhatsApp
-          </a>
-        </div>
-
-        <div class="hero-badges">
-          <div class="hero-badge-item">
-            <strong>Dubai &amp; Paris</strong>
-            <span>Importação 100% Original Lacrada</span>
-          </div>
-          <div class="hero-badge-item">
-            <strong>Pirâmide Olfativa</strong>
-            <span>Notas de Saída, Coração e Fundo</span>
-          </div>
-          <div class="hero-badge-item">
-            <strong>Macapá &amp; Santana</strong>
-            <span>Pronta Entrega &amp; Atendimento VIP</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Catálogo Editorial Panorâmico -->
-    <section class="catalog-section" id="catalogo">
-      <div class="section-header">
-        <span class="section-eyebrow">COLEÇÃO OFICIAL</span>
-        <h2 class="section-title">Vitrine de Fragrâncias</h2>
-        <p class="section-subtitle">
-          Compare as notas olfativas diretamente em cada perfume ou clique para abrir a ficha completa
-        </p>
-      </div>
-
-      <!-- Barra de Busca, Filtros por Categoria e Ordenação -->
-      <div class="catalog-controls">
-        <div class="search-box">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="11" cy="11" r="8"></circle>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-          </svg>
-          <input
-            type="search"
-            id="search-input"
-            placeholder="Buscar por nome, marca (Lattafa, Al Wataniah...) ou nota (Oud, Baunilha)..."
-            aria-label="Buscar perfumes"
-          />
-        </div>
-
-        <div class="filter-pills" role="tablist" aria-label="Filtrar por categoria">
-          <button type="button" class="filter-pill active" data-category="Todos" id="filter-all">Todos</button>
-          <button type="button" class="filter-pill" data-category="Masculino" id="filter-masculino">Masculinos</button>
-          <button type="button" class="filter-pill" data-category="Feminino" id="filter-feminino">Femininos</button>
-          <button type="button" class="filter-pill" data-category="Unissex" id="filter-unissex">Unissex</button>
-          <button type="button" class="filter-pill" data-category="Disponiveis" id="filter-estoque">Pronta Entrega</button>
-        </div>
-
-        <select id="sort-select" class="sort-select" aria-label="Ordenar catálogo">
-          <option value="featured">Destaques</option>
-          <option value="price-asc">Menor Valor</option>
-          <option value="price-desc">Maior Valor</option>
-          <option value="name-asc">Ordem Alfabética (A-Z)</option>
-        </select>
-      </div>
-
-      <div class="catalog-status-bar">
-        <span id="catalog-count">Carregando coleção...</span>
-        <span>Clique no perfume para ver mais detalhes</span>
-      </div>
-
-      <!-- Grid Editorial de Cards Horizontais -->
-      <div class="products-grid-editorial" id="products-grid"></div>
-    </section>
-
-    <!-- Diferenciais de Compra -->
-    <section class="features-strip" id="diferenciais" aria-label="Garantias JC Parfum">
-      <div class="feature-box">
-        <span class="feature-num">01</span>
-        <h3>100% Autênticos &amp; Lacrados</h3>
-        <p>Trabalhamos exclusivamente com perfumes originais das casas Lattafa, Al Wataniah, Maison Alhambra, Mega Collection e Jacques Bogart com selo de fábrica.</p>
-      </div>
-      <div class="feature-box">
-        <span class="feature-num">02</span>
-        <h3>Consultoria &amp; Pirâmide Olfativa</h3>
-        <p>Dúvida entre um amadeirado com Oud, um especiado noturno ou um floral adocicado? Compare as notas de Saída, Coração e Fundo ou chame no WhatsApp.</p>
-      </div>
-      <div class="feature-box">
-        <span class="feature-num">03</span>
-        <h3>Entrega Rápida no Amapá</h3>
-        <p>Monte sua sacola ou faça seu pedido direto pelo WhatsApp (96) 8119-7608 com entrega rápida em Macapá e Santana.</p>
-      </div>
-    </section>
-  </main>
-
-  <!-- Modal de Ficha Técnica Ampliada -->
-  <div class="modal-backdrop" id="product-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-    <div class="modal-dialog">
-      <button type="button" class="modal-close" id="modal-close-btn" onclick="closeProductModal()" aria-label="Fechar janela">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="18" y1="6" x2="6" y2="18"></line>
-          <line x1="6" y1="6" x2="18" y2="18"></line>
-        </svg>
-      </button>
-      <div id="modal-body-container" style="display: contents;"></div>
+<div class="hero">
+  <div class="hero-card">
+    <div class="eyebrow">Alta perfumaria do Oriente</div>
+    <h1>Fragrâncias árabes escolhidas com cuidado.</h1>
+    <p>Oud, âmbar, especiarias e flores. Escolha seu perfume, monte a sacola e finalize direto pelo WhatsApp.</p>
+    <div class="hero-cats">
+      <a class="cta" href="#catalogo">Ver a coleção</a>
+      <button data-hc="Feminino">Femininos</button>
+      <button data-hc="Masculino">Masculinos</button>
+      <button data-hc="Unissex">Unissex</button>
     </div>
   </div>
+  <div class="perks" id="como">
+    <div class="perk"><b>1. Escolha</b>Veja as fotos e a pirâmide olfativa de cada perfume.</div>
+    <div class="perk"><b>2. Monte a sacola</b>Escolha forma de pagamento e parcelas.</div>
+    <div class="perk"><b>3. Finalize no WhatsApp</b>O pedido chega pronto para a loja.</div>
+  </div>
+</div>
 
-  <!-- Sacola Lateral (Pedido WhatsApp) -->
-  <aside class="bag-drawer" id="bag-drawer" aria-label="Sacola de Pedidos">
-    <div class="bag-header">
-      <h3>Sua Sacola</h3>
-      <button type="button" onclick="toggleBagDrawer(false)" class="bag-close-btn" aria-label="Fechar sacola">✕</button>
-    </div>
-
-    <div class="bag-items" id="bag-items-list"></div>
-
-    <div class="bag-footer">
-      <div class="bag-client-fields">
-        <input type="text" id="bag-client-name" placeholder="Seu nome (opcional)" />
-        <select id="bag-client-region">
-          <option value="Macapá">Macapá - AP</option>
-          <option value="Santana">Santana - AP</option>
-          <option value="Outra Região">Outra Região</option>
+<main class="wrap">
+  <section class="cat" id="catalogo">
+    <div class="sec-head"><h2>Nossa coleção</h2><p>Perfumes originais, a pronta entrega ou sob encomenda.</p></div>
+    <div class="tools">
+      <div class="tabs" id="tabs"></div>
+      <div class="right">
+        <input type="search" id="q" placeholder="Buscar perfume ou marca" aria-label="Buscar">
+        <select id="sort" aria-label="Ordenar">
+          <option value="feat">Destaques</option>
+          <option value="az">Nome (A a Z)</option>
+          <option value="low">Menor preço</option>
+          <option value="high">Maior preço</option>
         </select>
       </div>
-
-      <div class="bag-total-row">
-        <span>Total Estimado:</span>
-        <strong id="bag-total-value">R$ 0,00</strong>
-      </div>
-
-      <button type="button" class="btn-gold" id="checkout-whatsapp-btn" onclick="checkoutBagWhatsApp()" style="width: 100%;">
-        Finalizar no WhatsApp
-      </button>
     </div>
-  </aside>
+    <div class="list" id="list"></div>
 
-  <!-- Botão Flutuante do WhatsApp -->
-  <a
-    href="https://wa.me/559681197608?text=Ol%C3%A1!%20Vim%20pelo%20cat%C3%A1logo%20da%20JC%20PARFUM%20e%20quero%20atendimento."
-    target="_blank"
-    rel="noopener noreferrer"
-    class="floating-wa"
-    id="floating-whatsapp-btn"
-    aria-label="Falar no WhatsApp"
-  >
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
-    </svg>
-    <span>WhatsApp (96) 8119-7608</span>
-  </a>
-
-  <!-- Rodapé com Acesso Discreto ao Lojista -->
-  <footer class="site-footer">
-    <div class="footer-inner">
-      <div class="brand-identity">
-        <div class="brand-logo-wrap" style="width: 44px; height: 44px;">
-          <img src="assets/img/logo.jpg" alt="JC PARFUM" />
-        </div>
-        <div class="brand-titles">
-          <span class="brand-name" style="font-size: 1.15rem;">JC PARFUM</span>
-          <span class="brand-sub">Imported · Premium · Macapá - AP</span>
-        </div>
-      </div>
-
-      <div class="footer-meta">
-        © 2026 JC Perfumes Árabes (JC PARFUM) ·
-        <a href="https://www.instagram.com/jc.perfumesarabe" target="_blank" rel="noopener noreferrer" class="footer-ig-link">@jc.perfumesarabe</a> ·
-        WhatsApp: +55 (96) 8119-7608
-      </div>
-
-      <a href="admin.html" class="footer-admin-link" id="footer-admin-btn">
-        Área do Lojista
-      </a>
+    <div class="channels">
+      <div class="ch"><div><b>Dúvida ou pedido rápido?</b><span>Fale direto com a JC PARFUM no WhatsApp.</span></div><a class="btn main" id="chWa" target="_blank" rel="noopener">Chamar no WhatsApp</a></div>
+      <div class="ch"><div><b>Novidades e reposições</b><span>Acompanhe a loja no Instagram.</span></div><a class="btn alt" id="chIg" target="_blank" rel="noopener">Seguir no Instagram</a></div>
     </div>
-  </footer>
+  </section>
+</main>
 
-  <script src="assets/js/products.js?v=3"></script>
-  <script src="assets/js/app.js?v=3"></script>
+<footer id="contato">
+  <div class="wrap">
+    <div class="fgrid">
+      <div><h5>JC PARFUM</h5><p>Perfumaria árabe e importada em Macapá, Amapá. Atendimento e pedidos pelo WhatsApp.</p></div>
+      <div><h5>Canais de atendimento</h5><ul><li><a id="fWa" href="#" target="_blank" rel="noopener">WhatsApp</a></li><li><a id="fIg" href="#" target="_blank" rel="noopener">Instagram</a></li></ul></div>
+      <div><h5>Entrega</h5><p id="fDel"></p></div>
+    </div>
+    <div class="fine"><span>© <span id="yr"></span> JC PARFUM. Todos os direitos reservados.</span><a href="admin.html">Área do Lojista</a></div>
+  </div>
+</footer>
+
+<aside class="bag" id="bag" aria-label="Sacola">
+  <header><h4>Sua sacola</h4><button class="iconbtn" id="closeBag" aria-label="Fechar sacola"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg></button></header>
+  <div class="items" id="items"></div>
+  <div class="foot" id="foot"></div>
+</aside>
+
+<script src="assets/catalog.js"></script>
+<script>
+(function(){
+  var S = JC.loadSettings(), P = JC.loadCatalog().filter(function(p){return p.active!==false;});
+  var money = JC.money, $ = function(s){return document.querySelector(s)};
+  var state = { cat:'Todos', q:'', sort:'feat' };
+  var bag = []; try { bag = JSON.parse(JC.store.get('jc_bag_v3')||'[]'); } catch(e){}
+  var pay = { method: 'pix', inst: 1, delivery: 'Retirada', name:'' };
+
+  function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  function byId(id){return P.filter(function(p){return p.id===id})[0]}
+  function saveBag(){ JC.store.set('jc_bag_v3', JSON.stringify(bag)); }
+
+  $('#banner').textContent = S.banner || '';
+  $('#yr').textContent = new Date().getFullYear();
+  var waUrl='https://wa.me/'+S.whatsapp+'?text='+encodeURIComponent('Olá! Vim pelo site da JC PARFUM e gostaria de atendimento.');
+  var igUrl='https://instagram.com/'+S.instagram;
+  $('#fWa').href = waUrl; $('#chWa').href = waUrl;
+  $('#fIg').href = igUrl; $('#fIg').textContent = 'Instagram @'+S.instagram;
+  $('#chIg').href = igUrl; $('#chIg').textContent = '@'+S.instagram;
+  $('#fDel').textContent = S.deliveryNote;
+
+  document.querySelector('.hero-cats').addEventListener('click',function(e){
+    var b=e.target.closest('[data-hc]'); if(!b) return;
+    state.cat=b.dataset.hc; buildTabs(); render(); $('#catalogo').scrollIntoView({behavior:'smooth'});
+  });
+
+  function stockInfo(p){
+    if (p.stock > 2) return {cls:'', txt:'Disponível · '+p.stock+' unidades', can:true, max:p.stock};
+    if (p.stock > 0) return {cls:'low', txt:(p.stock===1?'Última unidade':'Últimas '+p.stock+' unidades'), can:true, max:p.stock};
+    if (p.preorder) return {cls:'pre', txt:'Sob encomenda', can:true, max:10, pre:true};
+    return {cls:'out', txt:'Indisponível no momento', can:false, max:0};
+  }
+
+  function buildTabs(){
+    var hasPromo = P.some(function(p){return JC.pricing(p).onPromo});
+    var names = ['Todos','Feminino','Masculino','Unissex'];
+    if (hasPromo) names.push('Promoções');
+    if (names.indexOf(state.cat)<0) state.cat='Todos';
+    $('#tabs').innerHTML = names.map(function(n){
+      return '<button class="tab'+(n==='Promoções'?' promo':'')+(state.cat===n?' on':'')+'" data-c="'+n+'">'+n+'</button>';
+    }).join('');
+  }
+  $('#tabs').addEventListener('click',function(e){var b=e.target.closest('.tab');if(!b)return;state.cat=b.dataset.c;buildTabs();render();});
+  $('#q').addEventListener('input',function(e){state.q=e.target.value.toLowerCase();render();});
+  $('#sort').addEventListener('change',function(e){state.sort=e.target.value;render();});
+
+  function render(){
+    var l = P.filter(function(p){
+      if (state.cat==='Promoções' && !JC.pricing(p).onPromo) return false;
+      if (['Feminino','Masculino','Unissex'].indexOf(state.cat)>=0 && p.category!==state.cat) return false;
+      var hay=(p.name+' '+p.brand+' '+p.category+' '+p.notes.top+' '+p.notes.heart+' '+p.notes.base+' '+p.desc).toLowerCase();
+      return !state.q || hay.indexOf(state.q)>=0;
+    });
+    var val=function(p){var c=JC.pricing(p).cash;return c==null?Infinity:c};
+    if (state.sort==='az') l.sort(function(a,b){return a.name.localeCompare(b.name)});
+    else if (state.sort==='low') l.sort(function(a,b){return val(a)-val(b)});
+    else if (state.sort==='high') l.sort(function(a,b){var x=val(a),y=val(b);return (y===Infinity?-1:y)-(x===Infinity?-1:x)});
+    else l.sort(function(a,b){return (b.featured?1:0)-(a.featured?1:0) || ((b.stock>0)-(a.stock>0))});
+    $('#list').innerHTML = l.length ? l.map(card).join('') : '<div class="empty">Nenhum perfume encontrado.</div>';
+  }
+
+  function card(p){
+    var pr=JC.pricing(p), st=stockInfo(p), priceHtml;
+    var imgs=(p.images&&p.images.length)?p.images:[p.image];
+    if (pr.cash==null){
+      priceHtml='<div class="consult">Preço a consultar</div><div class="sub">Fale com a loja pelo WhatsApp</div>';
+    } else {
+      priceHtml=(pr.onPromo&&pr.oldCash?'<div class="old">'+money(pr.oldCash)+'</div>':'')+
+        '<div class="main">'+money(pr.cash)+' <small>à vista</small></div>'+
+        (pr.inst?'<div class="sub">ou '+money(pr.inst)+' parcelado</div>':'');
+    }
+    var ask='https://wa.me/'+S.whatsapp+'?text='+encodeURIComponent('Olá! Quero saber mais sobre o perfume '+p.name+' ('+p.brand+').');
+    var btn = st.can
+      ? '<button class="btn '+(st.pre?'alt':'main')+'" data-add="'+p.id+'">'+(st.pre?'Encomendar':'Adicionar à sacola')+'</button>'
+      : '<button class="btn alt" disabled>Indisponível</button>';
+    var thumbs = imgs.length>1 ? '<div class="thumbs">'+imgs.map(function(u,i){return '<button type="button" class="th'+(i===0?' on':'')+'" data-th="'+esc(u)+'" aria-label="Ver foto '+(i+1)+'"><img src="'+esc(u)+'" alt="" loading="lazy"></button>'}).join('')+'</div>' : '';
+    return '<article class="card"><div class="pic">'+(pr.onPromo?'<span class="flag">'+esc(pr.label)+'</span>':'')+
+      '<div class="arch"><img class="mainimg" src="'+esc(imgs[0])+'" alt="'+esc(p.name+' '+p.brand)+'" loading="lazy" onerror="this.src=\'assets/img/logo.webp\'"></div>'+thumbs+'</div>'+
+      '<div class="body"><div class="meta"><span>'+esc(p.brand)+'</span><i class="dot"></i><span>'+esc(p.category)+'</span><i class="dot"></i><span>'+esc(p.volume)+'</span></div>'+
+      '<h3>'+esc(p.name)+'</h3><p class="desc">'+esc(p.desc)+'</p>'+
+      '<div class="pyr"><div><b>Saída</b><span>'+esc(p.notes.top||'-')+'</span></div><div><b>Coração</b><span>'+esc(p.notes.heart||'-')+'</span></div><div><b>Fundo</b><span>'+esc(p.notes.base||'-')+'</span></div></div>'+
+      '<div class="buy"><div class="price">'+priceHtml+'<div class="stock '+st.cls+'"><i></i>'+st.txt+'</div></div>'+
+      '<div class="act"><a class="btn wap" target="_blank" rel="noopener" href="'+ask+'">Perguntar no WhatsApp</a>'+btn+'</div></div></div></article>';
+  }
+
+  /* troca de foto e adicionar à sacola */
+  function openBag(o){ document.body.classList.toggle('bag-open', o); }
+  $('#openBag').onclick=function(){openBag(!document.body.classList.contains('bag-open'))};
+  $('#closeBag').onclick=function(){openBag(false)};
+  $('#list').addEventListener('click',function(e){
+    var th=e.target.closest('[data-th]');
+    if(th){
+      var pic=th.closest('.pic'); pic.querySelector('.mainimg').src=th.dataset.th;
+      Array.prototype.forEach.call(pic.querySelectorAll('.th'),function(x){x.classList.toggle('on',x===th)}); return;
+    }
+    var b=e.target.closest('[data-add]'); if(!b) return;
+    var p=byId(b.dataset.add), st=stockInfo(p), it=bag.filter(function(x){return x.id===p.id})[0];
+    if (it){ if(it.q<st.max) it.q++; } else bag.push({id:p.id,q:1});
+    saveBag(); renderBag(); openBag(true);
+  });
+
+  function methods(){
+    var m=[]; if(S.payPix)m.push(['pix','Pix']); if(S.payCash)m.push(['dinheiro','Dinheiro']);
+    if(S.payDebit)m.push(['debito','Cartão de débito']); if(S.payCredit)m.push(['credito','Cartão de crédito']);
+    return m;
+  }
+  function calc(){
+    var credit = pay.method==='credito', total=0, unpriced=0, n=0;
+    bag.forEach(function(it){
+      var p=byId(it.id); if(!p) return; n+=it.q;
+      var pr=JC.pricing(p), v = credit ? (pr.inst!=null?pr.inst:pr.cash) : pr.cash;
+      if (v==null) unpriced+=it.q; else total+=v*it.q;
+    });
+    return {total:total, unpriced:unpriced, n:n, credit:credit};
+  }
+  function renderBag(){
+    bag = bag.filter(function(it){return byId(it.id)});
+    var ms=methods(); if(!ms.some(function(m){return m[0]===pay.method})) pay.method = ms.length?ms[0][0]:'pix';
+    var maxI=Math.max(1,parseInt(S.maxInstallments,10)||1); if(pay.inst>maxI) pay.inst=maxI;
+    var c=calc();
+    $('#count').textContent=c.n;
+    if(!bag.length){
+      $('#items').innerHTML='<div class="bagempty">Sua sacola está vazia.<br>Escolha um perfume na coleção.</div>';
+      $('#foot').innerHTML=''; return;
+    }
+    $('#items').innerHTML=bag.map(function(it){
+      var p=byId(it.id), pr=JC.pricing(p), st=stockInfo(p);
+      var v=c.credit&&pr.inst!=null?pr.inst:pr.cash;
+      return '<div class="it"><img src="'+esc(p.image)+'" alt=""><div><div class="n">'+esc(p.name)+'</div><div class="b">'+esc(p.brand)+' · '+esc(p.volume.split('·')[0])+'</div>'+
+        (st.pre?'<span class="tg">Sob encomenda</span>':'')+
+        '<div class="row"><div class="qty"><button data-m="'+p.id+'" aria-label="Menos">&minus;</button><span>'+it.q+'</span><button data-p="'+p.id+'" aria-label="Mais">+</button></div>'+
+        '<div class="pr">'+(v==null?'A consultar':money(v*it.q))+'</div></div><button class="rm" data-r="'+p.id+'">Remover</button></div></div>';
+    }).join('');
+    var inst='';
+    if(c.credit&&maxI>1){
+      var o=''; for(var i=1;i<=maxI;i++) o+='<option value="'+i+'"'+(pay.inst===i?' selected':'')+'>'+i+'x de '+money(c.total/i)+'</option>';
+      inst='<div class="field"><label>Parcelas</label><select id="inst">'+o+'</select></div>';
+    }
+    $('#foot').innerHTML=
+      '<div class="field"><label>Forma de pagamento</label></div><div class="pay">'+ms.map(function(m){return '<button data-pm="'+m[0]+'" class="'+(pay.method===m[0]?'on':'')+'">'+m[1]+'</button>'}).join('')+'</div>'+inst+
+      '<div class="two"><div class="field"><label>Seu nome (opcional)</label><input id="cname" value="'+esc(pay.name)+'" placeholder="Nome"></div><div class="field"><label>Recebimento</label><select id="deliv"><option'+(pay.delivery==='Retirada'?' selected':'')+'>Retirada</option><option'+(pay.delivery==='Entrega em Macapá'?' selected':'')+'>Entrega em Macapá</option></select></div></div>'+
+      '<div class="tot"><span>Total'+(c.credit?' (parcelado)':' (à vista)')+'</span><strong>'+money(c.total)+'</strong></div>'+
+      '<div class="note">'+(c.unpriced?c.unpriced+' item(ns) com preço a confirmar pela loja. ':'')+'Itens sob encomenda têm prazo e valor confirmados no WhatsApp.</div>'+
+      '<a class="wa" id="waBtn" target="_blank" rel="noopener" href="'+waLink(c)+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 1-13.4 7.8L3 21l1.3-4.4A9 9 0 1 1 21 12z"/></svg>Finalizar pelo WhatsApp</a>';
+  }
+  function waLink(c){
+    var L=['Olá! Quero fazer um pedido pelo site da JC PARFUM:',''];
+    bag.forEach(function(it){
+      var p=byId(it.id), pr=JC.pricing(p), st=stockInfo(p), v=c.credit&&pr.inst!=null?pr.inst:pr.cash;
+      L.push('- '+it.q+'x '+p.name+' ('+p.brand+', '+p.volume.split('·')[0].trim()+') - '+(v==null?'preço a confirmar':money(v*it.q))+(st.pre?' [SOB ENCOMENDA]':''));
+    });
+    L.push('');
+    var names={pix:'Pix',dinheiro:'Dinheiro',debito:'Cartão de débito',credito:'Cartão de crédito'};
+    L.push('Pagamento: '+names[pay.method]+(c.credit&&pay.inst>1?' em '+pay.inst+'x de '+money(c.total/pay.inst):''));
+    L.push('Total: '+money(c.total)+(c.unpriced?' (+ itens a confirmar)':''));
+    L.push('Recebimento: '+pay.delivery);
+    if(pay.name) L.push('Nome: '+pay.name);
+    return 'https://wa.me/'+S.whatsapp+'?text='+encodeURIComponent(L.join('\n'));
+  }
+  $('#items').addEventListener('click',function(e){
+    var t=e.target, id;
+    if(id=t.dataset.p){var it=bag.filter(function(x){return x.id===id})[0],st=stockInfo(byId(id)); if(it.q<st.max) it.q++;}
+    else if(id=t.dataset.m){var it2=bag.filter(function(x){return x.id===id})[0]; it2.q--; if(it2.q<=0) bag=bag.filter(function(x){return x.id!==id});}
+    else if(id=t.dataset.r){bag=bag.filter(function(x){return x.id!==id});}
+    else return;
+    saveBag(); renderBag();
+  });
+  $('#foot').addEventListener('click',function(e){var b=e.target.closest('[data-pm]'); if(!b) return; pay.method=b.dataset.pm; renderBag();});
+  $('#foot').addEventListener('change',function(e){
+    if(e.target.id==='inst') pay.inst=parseInt(e.target.value,10);
+    if(e.target.id==='deliv') pay.delivery=e.target.value;
+    if(e.target.id==='cname') pay.name=e.target.value.trim();
+    renderBag();
+  });
+  $('#foot').addEventListener('input',function(e){ if(e.target.id==='cname'){ pay.name=e.target.value.trim(); var a=$('#waBtn'); if(a) a.href=waLink(calc()); } });
+
+  buildTabs(); render(); renderBag();
+})();
+</script>
 </body>
 </html>
